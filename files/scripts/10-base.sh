@@ -21,6 +21,8 @@ dnf install -y flatpak
 # Add Flathub remote (system-wide)
 flatpak remote-add --if-not-exists --system flathub https://flathub.org/repo/flathub.flatpakrepo
 
+chmod +x /usr/libexec/install-flatpaks.sh
+
 systemctl enable rebel-flatpak-install.service
 
 echo "Hello, Atomic AlmaLinux respin world!."

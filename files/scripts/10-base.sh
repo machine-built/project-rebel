@@ -8,6 +8,13 @@ set -xeuo pipefail
 # dnf install -y 'dnf-command(config-manager)'
 # dnf config-manager --set-enabled crb
 
+# Enable CRB (required dependency for many EPEL packages)
+dnf install -y 'dnf-command(config-manager)'
+dnf config-manager --set-enabled crb
+
+# Install EPEL
+dnf install -y epel-release
+
 # Install flatpak
 dnf install -y flatpak
 

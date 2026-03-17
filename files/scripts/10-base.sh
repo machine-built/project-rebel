@@ -8,4 +8,13 @@ set -xeuo pipefail
 # dnf install -y 'dnf-command(config-manager)'
 # dnf config-manager --set-enabled crb
 
+# Install flatpak
+dnf install -y flatpak
+
+# Add Flathub remote (system-wide)
+flatpak remote-add --if-not-exists --system flathub https://flathub.org/repo/flathub.flatpakrepo
+
+# install Bazaar app store
+flatpak install --system --noninteractive flathub io.github.kolunmi.Bazaar
+
 echo "Hello, Atomic AlmaLinux respin world!."

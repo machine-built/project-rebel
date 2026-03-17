@@ -5,7 +5,7 @@ After=network-online.target
 
 [Service]
 Type=oneshot
-ExecStart=/usr/libexec/rebel-flatpak-install.sh
+ExecStart=/usr/libexec/install-flatpaks.sh
 RemainAfterExit=yes
 
 [Install]

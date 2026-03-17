@@ -1,0 +1,12 @@
+[Unit]
+Description=Install default Flatpaks
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/libexec/rebel-flatpak-install.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

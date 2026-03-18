@@ -30,10 +30,10 @@ systemctl enable rebel-timedate-config.service
 rm -f /etc/systemd/system/multi-user.target.wants/kdump.service
 
 sed -i 's,AlmaLinux,RebelLinux,g' /usr/lib/os-release
-sed -i 's,ID="almalinux",ID="rebel",g' /usr/lib/os-release
-sed -i 's,rhel,almalinux rhel,g' /usr/lib/os-release
-sed -i 's,https://almalinux.org/,g' /usr/lib/os-release
-sed -i 's,https://wiki.almalinux.org/,g' /usr/lib/os-release
-sed -i 's,https://bugs.almalinux.org/,g' /usr/lib/os-release
+# sed -i 's,ID="almalinux",ID="rebel",g' /usr/lib/os-release
+# sed -i 's,rhel,almalinux rhel,g' /usr/lib/os-release
+# sed -i 's,https://almalinux.org/,g' /usr/lib/os-release
+# sed -i 's,https://wiki.almalinux.org/,g' /usr/lib/os-release
+# sed -i 's,https://bugs.almalinux.org/,g' /usr/lib/os-release
 
 echo "Hello, Atomic AlmaLinux respin world!."

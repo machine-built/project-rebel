@@ -1,0 +1,10 @@
+[Unit]
+Description=Rebel timedate configuration
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/timedatectl set-local-rtc 0
+ExecStart=/usr/bin/timedatectl set-ntp 1
+
+[Install]
+WantedBy=multi-user.target

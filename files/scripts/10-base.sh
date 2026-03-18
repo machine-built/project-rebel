@@ -8,12 +8,8 @@ set -xeuo pipefail
 # dnf install -y 'dnf-command(config-manager)'
 # dnf config-manager --set-enabled crb
 
-# Enable CRB (required dependency for many EPEL packages)
-dnf install -y 'dnf-command(config-manager)'
-dnf config-manager --set-enabled crb
-
-# Install EPEL
-dnf install -y epel-release
+dnf config-manager --save \
+  --setopt=exclude=PackageKit,PackageKit-command-not-found,rootfiles,firefox
 
 # install linux firmware
 dnf install -y linux-firmware
@@ -21,17 +17,23 @@ dnf install -y linux-firmware
 # install microcode and fwupd
 dnf install -y microcode_ctl fwupd
 
-# Install flatpak
-dnf install -y flatpak
-
-# Add Flathub remote (system-wide)
-flatpak remote-add --if-not-exists --system flathub https://flathub.org/repo/flathub.flatpakrepo
-
 # enable fwupd service
 systemctl enable fwupd.service
 
 chmod +x /usr/libexec/install-flatpaks.sh
-
 systemctl enable rebel-flatpak-install.service
+
+systemctl enable opt.mount
+
+systemctl enable rebel-timedate-config.service
+
+rm -f /etc/systemd/system/multi-user.target.wants/kdump.service
+
+sed -i 's,AlmaLinux,RebelLinux,g' /usr/lib/os-release
+sed -i 's,ID="almalinux",ID="rebel",g' /usr/lib/os-release
+sed -i 's,rhel,almalinux rhel,g' /usr/lib/os-release
+sed -i 's,https://almalinux.org/,g' /usr/lib/os-release
+sed -i 's,https://wiki.almalinux.org/,g' /usr/lib/os-release
+sed -i 's,https://bugs.almalinux.org/,g' /usr/lib/os-release
 
 echo "Hello, Atomic AlmaLinux respin world!."

@@ -1,0 +1,11 @@
+[Unit]
+Description=Mount /opt
+
+[Mount]
+What=/var/opt
+Where=/opt
+Type=none
+Options=bind
+
+[Install]
+WantedBy=multi-user.target

@@ -15,11 +15,20 @@ dnf config-manager --set-enabled crb
 # Install EPEL
 dnf install -y epel-release
 
+# install linux firmware
+dnf install -y linux-firmware
+
+# install microcode and fwupd
+dnf install -y microcode_ctl fwupd
+
 # Install flatpak
 dnf install -y flatpak
 
 # Add Flathub remote (system-wide)
 flatpak remote-add --if-not-exists --system flathub https://flathub.org/repo/flathub.flatpakrepo
+
+# enable fwupd service
+systemctl enable fwupd.service
 
 chmod +x /usr/libexec/install-flatpaks.sh
 

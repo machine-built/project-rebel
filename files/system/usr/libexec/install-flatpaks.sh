@@ -2,7 +2,8 @@
 set -euo pipefail
 
 FLATPAK_LIST=(
-    "io.github.kolunmi.Bazaar"
+    "im.riot.Riot"
+    "one.ablaze.floorp"
 )
 
 flatpak remote-add --if-not-exists --system flathub https://flathub.org/repo/flathub.flatpakrepo

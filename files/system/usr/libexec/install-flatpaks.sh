@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# flatpak override for element encryption
+flatpak override --system \
+    --talk-name=org.kde.kwalletd6 \
+    --talk-name=org.kde.kwalletd5 \
+    im.riot.Riot
+
 STAMP="/var/lib/rebel-flatpak-done"
 
 # Skip if already completed

@@ -37,6 +37,8 @@ dnf install -y thermald
 
 dnf install -y intel-media-driver
 
+dnf install -y kmail
+
 
 systemctl enable thermald.service
 

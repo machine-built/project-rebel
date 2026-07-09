@@ -39,6 +39,14 @@ dnf install -y intel-media-driver
 
 dnf install -y kmail
 
+# Calendar/contacts/tasks stack (EPEL)
+dnf install -y \
+    merkuro \            # user-facing calendar (formerly Kalendar)
+    korganizer \         # deeper PIM features
+    kaddressbook \       # contacts
+    kdepim-runtime \     # Akonadi agents incl. the DAV groupware resource (CalDAV/CardDAV)
+    kdepim-addons        # PIM Events plugin → calendar entries in the Plasma clock applet
+
 
 systemctl enable thermald.service
 

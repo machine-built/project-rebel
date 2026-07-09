@@ -1,0 +1,4 @@
+[Default Applications]
+x-scheme-handler/matrix=im.riot.Riot.desktop
+x-scheme-handler/element=im.riot.Riot.desktop
+text/calendar=org.kde.merkuro.calendar.desktop

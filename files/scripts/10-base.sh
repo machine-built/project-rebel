@@ -9,13 +9,13 @@ set -xeuo pipefail
 # dnf config-manager --set-enabled crb
 
 # Import RPM Fusion keys
-RUN dnf install -y distribution-gpg-keys && \
+dnf install -y distribution-gpg-keys && \
     rpmkeys --import \
       /usr/share/distribution-gpg-keys/rpmfusion/RPM-GPG-KEY-rpmfusion-free-el-$(rpm -E %rhel) \
       /usr/share/distribution-gpg-keys/rpmfusion/RPM-GPG-KEY-rpmfusion-nonfree-el-$(rpm -E %rhel)
 
 # 3. Add RPM Fusion free + nonfree for EL10
-RUN dnf --setopt=localpkg_gpgcheck=1 install -y \
+dnf --setopt=localpkg_gpgcheck=1 install -y \
       https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-$(rpm -E %rhel).noarch.rpm \
       https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-$(rpm -E %rhel).noarch.rpm
 

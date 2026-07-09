@@ -17,6 +17,18 @@ dnf install -y linux-firmware
 # install microcode and fwupd
 dnf install -y microcode_ctl fwupd
 
+# install intel-audio-firmware
+dnf install -y intel-audio-firmware
+
+dnf install -y alsa-sof-firmware
+
+dnf install -y thermald
+
+dnf install -y intel-media-driver
+
+
+systemctl enable thermald.service
+
 # enable fwupd service
 systemctl enable fwupd.service
 

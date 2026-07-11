@@ -31,6 +31,10 @@ dnf install -y microcode_ctl fwupd
 # install intel-audio-firmware
 dnf install -y intel-audio-firmware
 
+# Host tooling for managing this image from the running system
+# gcc/dev toolchains deliberately excluded — those live in distrobox
++dnf install -y git-core make distrobox
+
 dnf install -y alsa-sof-firmware
 
 dnf install -y thermald
@@ -46,6 +50,8 @@ dnf install -y \
     kaddressbook \
     kdepim-runtime \
     kdepim-addons
+
+dnf install -y fastfetch
 
 
 systemctl enable thermald.service

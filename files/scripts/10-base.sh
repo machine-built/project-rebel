@@ -33,7 +33,7 @@ dnf install -y intel-audio-firmware
 
 # Host tooling for managing this image from the running system
 # gcc/dev toolchains deliberately excluded — those live in distrobox
-+dnf install -y git-core make distrobox
+dnf install -y git-core make distrobox
 
 dnf install -y alsa-sof-firmware
 

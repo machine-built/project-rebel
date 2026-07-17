@@ -53,8 +53,6 @@ dnf install -y \
 
 dnf install -y fastfetch
 
-chmod +x files/scripts/20-wallpaper.sh
-
 
 systemctl enable thermald.service
 

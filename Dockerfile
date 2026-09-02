@@ -9,7 +9,7 @@ COPY *.pub /keys/
 # Base Image
 FROM quay.io/almalinuxorg/atomic-desktop-kde:10@sha256:b327d8443a2b27857a66549d0df30b61938653ab2b7f0892ee030eb863604911
 
-ARG IMAGE_NAME=schloss
+ARG NAME=schloss
 ARG IMAGE_REGISTRY=PROJECT-REBEL
 ARG VARIANT=ALPHA
 ARG NAME_CAP=Schloss

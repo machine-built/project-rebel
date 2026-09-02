@@ -20,7 +20,7 @@ RUN mkdir -p /usr/share/pixmaps/${NAME}.svg
 COPY files/branding/icons/${NAME}_logo.svg /usr/share/pixmaps/${NAME}.svg
 COPY files/branding/icons/${NAME}_logo.svg /usr/share/icons/hicolor/scalable/apps/${NAME}.svg
 
-RUN sed -i "s/^LOGO=.*/LOGO=${NAME}/" /usr/lib/os-release || \
+#RUN sed -i "s/^LOGO=.*/LOGO=${NAME}/" /usr/lib/os-release || \
     echo "LOGO=${NAME}" >> /usr/lib/os-release
 
 # 2. PLYMOUTH SPLASH

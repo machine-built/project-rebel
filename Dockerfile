@@ -24,6 +24,8 @@ RUN sed -i "s/^LOGO=.*/LOGO=${NAME}/" /usr/lib/os-release || \
     echo "LOGO=${NAME}" >> /usr/lib/os-release
 
 # 2. PLYMOUTH SPLASH
+RUN mkdir /usr/share/plymouth/themes/@{NAME}
+
 COPY files/branding/plymouth/ /usr/share/plymouth/themes/${NAME}/
 
 RUN plymouth-set-default-theme -R ${NAME}

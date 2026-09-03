@@ -15,7 +15,7 @@ ARG VARIANT=ALPHA
 ARG NAME_CAP=Schloss
 
 # 1. ICONS
-RUN mkdir -p /usr/share/pixmaps/${NAME}.svg
+RUN mkdir -p /usr/share/pixmaps/${NAME}
 
 COPY files/branding/icons/${NAME}_logo.svg /usr/share/pixmaps/${NAME}.svg
 COPY files/branding/icons/${NAME}_logo.svg /usr/share/icons/hicolor/scalable/apps/${NAME}.svg

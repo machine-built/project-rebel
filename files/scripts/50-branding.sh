@@ -38,7 +38,7 @@ printf '[Theme]\nCurrent=breeze\n' > "/etc/sddm.conf.d/10-${NAME}.conf"
 cat > /usr/share/sddm/themes/breeze/theme.conf.user <<SDDM
 [General]
 type=image
-background=/usr/share/sddm/themes/${NAME}/BG_lockScreen.png
+background=/usr/share/sddm/themes/${NAME}/background-tile.png
 SDDM
 
 # ------------------------------------------------------------ 4. WALLPAPERS
@@ -51,37 +51,16 @@ WPDIR="/usr/share/wallpapers/${NAME_CAP}"
 #install -Dm0644 "${BRANDING}/wallpapers/fossschloss1080.png" \
 #    "${WPDIR}/contents/screenshot.png"
 
-cat > "${WPDIR}/metadata.json" <<WP
-{
-  "KPlugin": {
-    "Id": "${NAME_CAP}",
-    "Name": "${NAME_CAP}",
-    "License": "GPL-3.0"
-  },
-  "KPackageStructure": "Wallpaper/Images"
-}
-WP
-
 LNF="/usr/share/plasma/look-and-feel/org.almalinux.${NAME}.default"
 #mkdir -p "${LNF}/contents"
 
-cat > "${LNF}/metadata.json" <<LNFMETA
-{
-  "KPlugin": {
-    "Id": "org.almalinux.${NAME}.default",
-    "Name": "${NAME_CAP}"
-  },
-  "KPackageStructure": "Plasma/LookAndFeel"
-}
-LNFMETA
+#cat > "${LNF}/contents/defaults" <<DEFAULTS
+#[Wallpaper][org.kde.image][General]
+#Image=Schloss
 
-cat > "${LNF}/contents/defaults" <<DEFAULTS
-[Wallpaper][org.kde.image][General]
-Image=${WPDIR}/contents/images/1920x1080.png
-
-[Wallpaper][org.kde.image][General][ScreenLocker]
-Image=${WPDIR}/contents/images/1920x1080.png
-DEFAULTS
+#[Wallpaper][org.kde.image][General][ScreenLocker]
+#Image=${WPDIR}/contents/images/1920x1080.png
+#DEFAULTS
 
 # Append base image
 #mkdir -p /etc/xdg

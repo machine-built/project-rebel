@@ -1,0 +1,4 @@
+{
+  "KPlugin": { "Id": "org.almalinux.schloss.default", "Name": "Schloss" },
+  "KPackageStructure": "Plasma/LookAndFeel"
+}

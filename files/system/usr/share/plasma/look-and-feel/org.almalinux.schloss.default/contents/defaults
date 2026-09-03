@@ -1,0 +1,5 @@
+[Wallpaper][org.kde.image][General]
+Image=/usr/share/wallpapers/Schloss/contents/images/1920x1080.png
+
+[Wallpaper][org.kde.image][General][ScreenLocker]
+Image=/usr/share/wallpapers/Schloss/contents/images/1920x1080.png

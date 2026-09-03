@@ -15,60 +15,60 @@ ARG VARIANT=ALPHA
 ARG NAME_CAP=Schloss
 
 # 1. ICONS
-RUN mkdir -p /usr/share/pixmaps/${NAME}
+RUN mkdir -p /usr/share/pixmaps/schloss
 
-COPY files/branding/icons/${NAME}_logo.svg /usr/share/pixmaps/${NAME}.svg
-COPY files/branding/icons/${NAME}_logo.svg /usr/share/icons/hicolor/scalable/apps/${NAME}.svg
+COPY files/branding/icons/foss_logo.svg /usr/share/pixmaps/schloss.svg
+COPY files/branding/icons/foss_logo.svg /usr/share/icons/hicolor/scalable/apps/schloss.svg
 
-RUN sed -i "s/^LOGO=.*/LOGO=${NAME}/" /usr/lib/os-release || \
-    echo "LOGO=${NAME}" >> /usr/lib/os-release
+RUN sed -i "s/^LOGO=.*/LOGO=schloss/" /usr/lib/os-release || \
+    echo "LOGO=schloss" >> /usr/lib/os-release
 
 # 2. PLYMOUTH SPLASH
-RUN mkdir /usr/share/plymouth/themes/${NAME}
+RUN mkdir /usr/share/plymouth/themes/schloss
 
-COPY files/branding/plymouth/ /usr/share/plymouth/themes/${NAME}/
+COPY files/branding/plymouth/ /usr/share/plymouth/themes/schloss/
 
-RUN plymouth-set-default-theme -R ${NAME}
+RUN plymouth-set-default-theme schloss
 RUN set -xe; \
     kver=$(cd /usr/lib/modules && echo *); \
     dracut -vf /usr/lib/modules/${kver}/initramfs.img ${kver}
 
 # 3. SDDM THEME
-COPY files/branding/sddm/ /usr/share/sddm/themes/${NAME}/
+COPY files/branding/sddm/ /usr/share/sddm/themes/schloss/
 RUN mkdir -p /etc/sddm.conf.d && \
-    printf '[Theme]\nCurrent=%s\n' "${NAME}" > /etc/sddm.conf.d/${NAME}.conf
+    printf '[Theme]\nCurrent=schloss\n' > /etc/sddm.conf.d/schloss.conf
 
 # 4. WALLPAPERS
-RUN mkdir -p /usr/share/wallpapers/${NAME_CAP}/contents/images
+RUN mkdir -p /usr/share/wallpapers/Schloss/contents/images
 
-COPY files/branding/wallpapers/${NAME}_*.png /usr/share/wallpapers/${NAME_CAP}/contents/images/
-RUN cd /usr/share/wallpapers/${NAME_CAP}/contents/images/ && \
-    for f in ${NAME}_*.png; do mv "$f" "${f#${NAME}_}"; done
+COPY files/branding/wallpapers/Schloss_*.png /usr/share/wallpapers/Schloss/contents/images/
+RUN cd /usr/share/wallpapers/Schloss/contents/images/ && \
+    for f in schloss_*.png; do mv "$f" "${f#schloss_}"; done
 
-RUN mkdir -p /usr/share/plasma/look-and-feel/org.almalinux.${NAME}.default/contents && \
-    cat > /usr/share/plasma/look-and-feel/org.almalinux.${NAME}.default/contents/defaults <<EOF
+RUN mkdir -p /usr/share/plasma/look-and-feel/org.almalinux.schloss.default/contents && \
+    cat > /usr/share/plasma/look-and-feel/org.almalinux.schloss.default/contents/defaults <<EOF
 [Wallpaper][org.kde.image][General]
-Image=/usr/share/wallpapers/${NAME_CAP}/contents/images/1920x1080.png
+Image=/usr/share/wallpapers/Schloss/contents/images/1920x1080.png
 
 [Wallpaper][org.kde.image][General][ScreenLocker]
-Image=/usr/share/wallpapers/${NAME_CAP}/contents/images/1920x1080.png
+Image=/usr/share/wallpapers/Schloss/contents/images/1920x1080.png
 EOF
 
 RUN mkdir -p /etc/xdg && \
-    printf '[KDE]\nLookAndFeelPackage=org.almalinux.%s.default\n' "${NAME}" > /etc/xdg/kdeglobals
+    printf '[KDE]\nLookAndFeelPackage=org.almalinux.schloss.default\n' > /etc/xdg/kdeglobals
 
 # 5. FASTFETCH
 RUN mkdir -p /etc/fastfetch
-COPY files/branding/fastfetch/${NAME}_logo.txt /etc/fastfetch/logo.txt
-COPY files/branding/fastfetch/${NAME}_config.jsonc /etc/fastfetch/config.jsonc
+COPY files/branding/fastfetch/schloss_logo.txt /etc/fastfetch/logo.txt
+COPY files/branding/fastfetch/schloss_config.jsonc /etc/fastfetch/config.jsonc
 
 # 6. GRUB THEME
-RUN mkdir -p /usr/share/grub-themes/${NAME} /boot/grub2/themes/${NAME}
-COPY files/branding/grub-theme/ /usr/share/grub-themes/${NAME}/
-COPY files/branding/grub-theme/ /boot/grub2/themes/${NAME}/
+RUN mkdir -p /usr/share/grub-themes/schloss /boot/grub2/themes/schloss
+COPY files/branding/grub-theme/ /usr/share/grub-themes/schloss/
+COPY files/branding/grub-theme/ /boot/grub2/themes/schloss/
 
-RUN sed -i "s|^GRUB_THEME=.*|GRUB_THEME=/boot/grub2/themes/${NAME}/theme.txt|" /etc/default/grub || \
-    echo "GRUB_THEME=/boot/grub2/themes/${NAME}/theme.txt" >> /etc/default/grub
+RUN sed -i "s|^GRUB_THEME=.*|GRUB_THEME=/boot/grub2/themes/schloss/theme.txt|" /etc/default/grub || \
+    echo "GRUB_THEME=/boot/grub2/themes/schloss/theme.txt" >> /etc/default/grub
 
 RUN --mount=type=tmpfs,dst=/opt \
     --mount=type=tmpfs,dst=/tmp \

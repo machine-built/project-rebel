@@ -2,8 +2,10 @@
 # Allow build scripts to be referenced without being copied into the final image
 # Build context — never becomes a layer in the final image
 FROM scratch AS ctx
-COPY files/branding /branding
-COPY files/scripts  /scripts
+COPY files/system /system_files/
+COPY --chmod=0755 files/scripts /build_files/
+COPY files/branding /branding/
+COPY *.pub /keys/
 
 # Base Image
 FROM quay.io/almalinuxorg/atomic-desktop-kde:10@sha256:b327d8443a2b27857a66549d0df30b61938653ab2b7f0892ee030eb863604911

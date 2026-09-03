@@ -29,6 +29,9 @@ RUN mkdir /usr/share/plymouth/themes/${NAME}
 COPY files/branding/plymouth/ /usr/share/plymouth/themes/${NAME}/
 
 RUN plymouth-set-default-theme -R ${NAME}
+RUN set -xe; \
+    kver=$(cd /usr/lib/modules && echo *); \
+    dracut -vf /usr/lib/modules/${kver}/initramfs.img ${kver}
 
 # 3. SDDM THEME
 COPY files/branding/sddm/ /usr/share/sddm/themes/${NAME}/

@@ -7,7 +7,7 @@ set -xeuo pipefail
 # Examples:
 # dnf install -y 'dnf-command(config-manager)'
 # dnf config-manager --set-enabled crb
-
+mkdir -p /var/lib/rpm-state
 # Import RPM Fusion keys
 dnf install -y distribution-gpg-keys && \
     rpmkeys --import \
@@ -23,19 +23,19 @@ dnf config-manager --save \
   --setopt=exclude=PackageKit,PackageKit-command-not-found,rootfiles,firefox
 
 # install linux firmware
-dnf install -y linux-firmware
+#dnf install -y linux-firmware
 
 # install microcode and fwupd
-dnf install -y microcode_ctl fwupd
+#dnf install -y microcode_ctl fwupd
 
 # install intel-audio-firmware
-dnf install -y intel-audio-firmware
+#dnf install -y intel-audio-firmware
 
 # Host tooling for managing this image from the running system
 # gcc/dev toolchains deliberately excluded — those live in distrobox
 dnf install -y git-core make distrobox
 
-dnf install -y alsa-sof-firmware
+#dnf install -y alsa-sof-firmware
 
 dnf install -y thermald
 
@@ -62,7 +62,7 @@ systemctl enable fwupd.service
 chmod +x /usr/libexec/install-flatpaks.sh
 systemctl enable rebel-flatpak-install.service
 
-systemctl enable opt.mount
+#systemctl enable opt.mount
 
 systemctl enable rebel-timedate-config.service
 
@@ -75,4 +75,4 @@ sed -i 's,AlmaLinux,RebelLinux,g' /usr/lib/os-release
 # sed -i 's,https://wiki.almalinux.org/,g' /usr/lib/os-release
 # sed -i 's,https://bugs.almalinux.org/,g' /usr/lib/os-release
 
-echo "Hello, Atomic AlmaLinux respin world!."
+echo "Hello, Schloss Linux world!."

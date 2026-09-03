@@ -1,0 +1,172 @@
+// Schloss OS — system-wide fastfetch configuration
+// Installed to /etc/xdg/fastfetch/config.jsonc
+//
+// This is a SYSTEM default. Any user with ~/.config/fastfetch/config.jsonc
+// will override it entirely — fastfetch does not merge the two.
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+
+  "logo": {
+    // "file" substitutes $1..$9 colour placeholders in the art.
+    // Use "file-raw" instead if your logo.txt already contains ANSI escapes.
+    "type": "file",
+    "source": "/etc/xdg/fastfetch/logo.txt",
+    "padding": {
+      "top": 1,
+      "left": 2,
+      "right": 3
+    },
+    // Maps $1 / $2 in logo.txt to these colours.
+    "color": {
+      "1": "blue",
+      "2": "white"
+    }
+  },
+
+  "display": {
+    "separator": "  ",
+    "key": {
+      "width": 13
+    },
+    "color": {
+      "keys": "blue",
+      "title": "white"
+    },
+    "size": {
+      "binaryPrefix": "iec"
+    },
+    "percent": {
+      // 1 = number, 2 = bar, 3 = both
+      "type": 3
+    }
+  },
+
+  "modules": [
+    {
+      "type": "title",
+      "format": "{user-name}@{host-name}"
+    },
+    {
+      "type": "separator",
+      "string": "─"
+    },
+
+    // ---- System ----
+    {
+      "type": "os",
+      "key": "OS",
+      // {6} is VARIANT, {12} is architecture. Set VARIANT= in /usr/lib/os-release
+      // from your ARG VARIANT and it shows up here automatically.
+      "format": "{3} {6} ({12})"
+    },
+    {
+      "type": "kernel",
+      "key": "Kernel"
+    },
+    {
+      "type": "host",
+      "key": "Host"
+    },
+    {
+      "type": "uptime",
+      "key": "Uptime"
+    },
+    {
+      "type": "packages",
+      "key": "Packages"
+    },
+    {
+      "type": "shell",
+      "key": "Shell"
+    },
+
+    // ---- Bootc deployment ----
+    // Uncomment once you add an IMAGE_REF= line to /usr/lib/os-release.
+    // Avoid calling `bootc status` here: it is slow and wants root.
+    // {
+    //   "type": "command",
+    //   "key": "Image",
+    //   "text": "awk -F= '/^IMAGE_REF=/{gsub(/\"/,\"\",$2); print $2}' /usr/lib/os-release"
+    // },
+
+    {
+      "type": "separator",
+      "string": "─"
+    },
+
+    // ---- Desktop ----
+    {
+      "type": "de",
+      "key": "DE"
+    },
+    {
+      "type": "wm",
+      "key": "WM"
+    },
+    {
+      "type": "wmtheme",
+      "key": "WM Theme"
+    },
+    {
+      "type": "theme",
+      "key": "Theme"
+    },
+    {
+      "type": "icons",
+      "key": "Icons"
+    },
+    {
+      "type": "font",
+      "key": "Font"
+    },
+    {
+      "type": "cursor",
+      "key": "Cursor"
+    },
+    {
+      "type": "terminal",
+      "key": "Terminal"
+    },
+    {
+      "type": "display",
+      "key": "Resolution"
+    },
+
+    {
+      "type": "separator",
+      "string": "─"
+    },
+
+    // ---- Hardware ----
+    {
+      "type": "cpu",
+      "key": "CPU"
+    },
+    {
+      "type": "gpu",
+      "key": "GPU"
+    },
+    {
+      "type": "memory",
+      "key": "Memory"
+    },
+    {
+      "type": "swap",
+      "key": "Swap"
+    },
+    {
+      "type": "disk",
+      "key": "Disk",
+      // On a bootc system / is a composefs mount; /var and /sysroot are the
+      // ones that actually tell you anything useful about free space.
+      "folders": "/:/var:/home"
+    },
+    {
+      "type": "locale",
+      "key": "Locale"
+    },
+
+    "break",
+    "colors"
+  ]
+}

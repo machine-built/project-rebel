@@ -62,15 +62,6 @@ LNF="/usr/share/plasma/look-and-feel/org.almalinux.${NAME}.default"
 #Image=${WPDIR}/contents/images/1920x1080.png
 #DEFAULTS
 
-# Append base image
-#mkdir -p /etc/xdg
-if grep -q '^\[KDE\]' /etc/xdg/kdeglobals 2>/dev/null; then
-    sed -i "/^\[KDE\]/a LookAndFeelPackage=org.almalinux.${NAME}.default" \
-        /etc/xdg/kdeglobals
-else
-    printf '\n[KDE]\nLookAndFeelPackage=org.almalinux.%s.default\n' "${NAME}" \
-        >> /etc/xdg/kdeglobals
-fi
 
 # ------------------------------------------------------------- 5. FASTFETCH
 # XDG search path — /etc/fastfetch is NOT read by fastfetch.

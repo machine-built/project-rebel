@@ -1,2 +1,5 @@
-   [KDE]
-   LookAndFeelPackage=org.almalinux.schloss.default
+[KDE]
+LookAndFeelPackage=org.almalinux.schloss.default
+
+[Wallpaper]
+Image=schloss

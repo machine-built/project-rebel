@@ -1,0 +1,2 @@
+# files/system/usr/lib/bootc/kargs.d/20-splash.toml
+kargs = ["rhgb", "quiet"]

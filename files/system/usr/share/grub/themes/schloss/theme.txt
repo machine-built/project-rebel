@@ -1,5 +1,5 @@
 title-text: ""
-desktop-image: "foss2.jpg"
+desktop-image: "BG_GRUB.png"
 desktop-color: "#000000"
 terminal-font: "DejaVu Sans Mono 16"
 

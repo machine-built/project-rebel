@@ -9,6 +9,12 @@ COPY *.pub /keys/
 # Base Image
 FROM quay.io/almalinuxorg/atomic-desktop-kde:10
 
+RUN dnf install -y sssd sssd-idp && dnf clean all
+
+COPY files/etc/sssd/sssd.conf /etc/sssd/sssd.conf
+RUN chmod 600 /etc/sssd/sssd.conf && \
+    systemctl enable sssd.service
+
 ARG IMAGE_NAME
 ARG IMAGE_REGISTRY
 ARG VARIANT

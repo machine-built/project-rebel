@@ -2,11 +2,6 @@
 
 set -xeuo pipefail
 
-# Start customizing your image here
-
-# Examples:
-# dnf install -y 'dnf-command(config-manager)'
-# dnf config-manager --set-enabled crb
 mkdir -p /var/lib/rpm-state
 # Import RPM Fusion keys
 dnf install -y distribution-gpg-keys && \
@@ -22,17 +17,14 @@ dnf --setopt=localpkg_gpgcheck=1 install -y \
 dnf config-manager --save \
   --setopt=exclude=PackageKit,PackageKit-command-not-found,rootfiles,firefox
 
-# install linux firmware
-#dnf install -y linux-firmware
+dnf install -y gdm
+systemctl disable sddm.service
+systemctl enable gdm.service
 
-# install microcode and fwupd
-#dnf install -y microcode_ctl fwupd
+dnf install -y sssd sssd-idp oddjob-mkhomedir authselect
+authselect select sssd with-mkhomedir --force
+systemctl enable oddjobd.service sssd.service
 
-# install intel-audio-firmware
-#dnf install -y intel-audio-firmware
-
-# Host tooling for managing this image from the running system
-# gcc/dev toolchains deliberately excluded — those live in distrobox
 dnf install -y git-core make distrobox
 
 #dnf install -y alsa-sof-firmware

@@ -17,9 +17,9 @@ dnf --setopt=localpkg_gpgcheck=1 install -y \
 dnf config-manager --save \
   --setopt=exclude=PackageKit,PackageKit-command-not-found,rootfiles,firefox
 
-dnf install -y gdm
-systemctl disable sddm.service
-systemctl enable gdm.service
+#dnf install -y gdm
+#systemctl disable sddm.service
+#systemctl enable gdm.service
 
 dnf install -y sssd sssd-idp oddjob-mkhomedir authselect
 authselect select sssd with-mkhomedir --force

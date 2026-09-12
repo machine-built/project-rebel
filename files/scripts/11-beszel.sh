@@ -1,6 +1,6 @@
 # download agent, create then enable service
 
-curl -sL "https://github.com/henrygd/beszel/releases/latest/download/beszel-agent_Linux_x86_64.tar.gz" \
+curl -sL "https://github.com/henrygd/beszel/releases/download/v0.19.0/beszel-agent_linux_amd64.tar.gz" \
     | tar -xz beszel-agent -C /usr/bin/ \
  && cat > /usr/lib/systemd/system/beszel-agent.service << 'EOF'
 [Unit]

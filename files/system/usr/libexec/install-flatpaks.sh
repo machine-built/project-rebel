@@ -4,10 +4,7 @@ set -euo pipefail
 flatpak remote-add --if-not-exists --system flathub https://flathub.org/repo/flathub.flatpakrepo
 
 # flatpak override for element encryption
-flatpak override --system \
-    --talk-name=org.kde.kwalletd6 \
-    --talk-name=org.kde.kwalletd5 \
-    im.riot.Riot
+flatpak override --system --talk-name=org.kde.kwalletd6 --talk-name=org.kde.kwalletd5 im.riot.Riot
 
 STAMP="/var/lib/rebel-flatpak-done"
 

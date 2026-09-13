@@ -12,7 +12,11 @@ BESZEL_KEY="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAPzyy+/BPYuDg43zmnaGYGHUjLQVxHj
 echo "Installing beszel-agent..."
 
 ARCH="$(uname -m)"
-curl -sL "https://github.com/henrygd/beszel/releases/latest/download/beszel-agent_linux_${ARCH}.tar.gz" \
+case "$ARCH" in
+  x86_64)  ARCH="amd64" ;;
+esac
+
+curl -sSLf "https://github.com/henrygd/beszel/releases/latest/download/beszel-agent_linux_${ARCH}.tar.gz" \
   -o /tmp/beszel-agent.tar.gz
 tar -xzf /tmp/beszel-agent.tar.gz -C /usr/bin/ beszel-agent
 chmod +x /usr/bin/beszel-agent

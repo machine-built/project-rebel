@@ -1,0 +1,25 @@
+# rebel-set-hostname.service — run rebel-set-hostname.sh once, before the
+# Beszel agent registers, so the hub records the derived name.
+#
+# Ships at: files/system/usr/lib/systemd/system/rebel-set-hostname.service
+#
+# the unit only starts if the marker file is absent and creates it on success.
+
+
+[Unit]
+Description=Set per-device hostname on first boot
+ConditionPathExists=!/var/lib/rebel/hostname-set
+After=dbus.socket
+Wants=dbus.socket
+# agent captures the hostname at first registration.
+Before=beszel-agent.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=no
+ExecStart=/usr/libexec/12-set-hostname.sh
+ExecStartPost=/usr/bin/mkdir -p /var/lib/rebel
+ExecStartPost=/usr/bin/touch /var/lib/rebel/hostname-set
+
+[Install]
+WantedBy=multi-user.target

@@ -51,11 +51,15 @@ systemctl enable thermald.service
 # enable fwupd service
 systemctl enable fwupd.service
 
+#flatpak install service
 chmod +x /usr/libexec/install-flatpaks.sh
 systemctl enable rebel-flatpak-install.service
 
-#systemctl enable opt.mount
+#hostname creation for Beszel tracking
+chmod +x /usr/libexec/set-hostname.sh
+systemctl enable rebel-set-hostname.service
 
+#systemctl enable opt.mount
 systemctl enable rebel-timedate-config.service
 
 rm -f /etc/systemd/system/multi-user.target.wants/kdump.service

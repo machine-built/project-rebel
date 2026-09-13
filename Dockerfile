@@ -21,10 +21,6 @@ RUN --mount=type=tmpfs,dst=/opt \
     --mount=type=bind,from=ctx,source=/,target=/ctx \
     /ctx/build_files/build.sh
 
-RUN --mount=type=bind,source=./files/scripts,target=/run/build_files \
-    BESZEL_HUB_URL="${BESZEL_HUB_URL}" BESZEL_TOKEN="${BESZEL_TOKEN}" BESZEL_KEY="${BESZEL_KEY}" /run/build_files/10-base.sh && \
-    BESZEL_HUB_URL="${BESZEL_HUB_URL}" BESZEL_TOKEN="${BESZEL_TOKEN}" BESZEL_KEY="${BESZEL_KEY}" /run/build_files/11-beszel.sh
-
 ### LINTING
 ## Verify final image and contents are correct.
 RUN bootc container lint

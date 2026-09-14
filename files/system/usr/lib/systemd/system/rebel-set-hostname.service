@@ -17,7 +17,7 @@ Before=beszel-agent.service
 [Service]
 Type=oneshot
 RemainAfterExit=no
-ExecStart=/usr/libexec/12-set-hostname.sh
+ExecStart=/usr/libexec/set-hostname.sh
 ExecStartPost=/usr/bin/mkdir -p /var/lib/rebel
 ExecStartPost=/usr/bin/touch /var/lib/rebel/hostname-set
 

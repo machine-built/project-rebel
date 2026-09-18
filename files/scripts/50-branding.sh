@@ -60,11 +60,13 @@ test -f "/usr/share/plasma/look-and-feel/${LNF_ID}/contents/defaults"
 #kwriteconfig6 --file "${KDEPROFILE}/kscreenlockerrc" "${WPGROUP[@]}" \
 #    --key Image "file:///usr/share/wallpapers/${WP}"
 
-# Login screen (Plasma Login Manager); file is owned by kde-settings-plasmalogin
-if [ -d /usr/lib/plasmalogin ]; then
-    kwriteconfig6 --file /usr/lib/plasmalogin/defaults.conf "${WPGROUP[@]}" \
-        --key Image "file:///usr/share/wallpapers/${WP}"
-fi
+PLM_DEFAULTS=/usr/lib/plasmalogin/defaults.conf
+rpm -q plasma-login-manager        # fail loudly if the DM changes under us again
+ls -l "${PLM_DEFAULTS}" || true    # log whether an RPM shipped it, and its mode
+kwriteconfig6 --file "${PLM_DEFAULTS}" "${WPGROUP[@]}" \
+    --key Image "file:///usr/share/wallpapers/${WP}"
+chmod 0644 "${PLM_DEFAULTS}"       # greeter runs as user 'plasmalogin'
+cat "${PLM_DEFAULTS}"              # evidence in build.log
 
 #[Wallpaper][org.kde.image][General][ScreenLocker]
 #Image=${WPDIR}/contents/images/1920x1080.png

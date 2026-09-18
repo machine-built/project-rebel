@@ -23,6 +23,9 @@ sed -i '/^VARIANT/d' /usr/lib/os-release
 # ------------------------------------------------------- PLYMOUTH SPLASH
 command -v plymouth-set-default-theme >/dev/null
 
+T=files/system/usr/share/plymouth/themes/schloss
+git rm $T/background-tile.png $T/schloss_logo.svg $T/schloss_logo{16,32,64,128,256}.png
+
 # mkdir -p "/usr/share/plymouth/themes/${NAME}"
 # cp -a "${BRANDING}/plymouth/." "/usr/share/plymouth/themes/${NAME}/"
 
@@ -32,23 +35,34 @@ command -v plymouth-set-default-theme >/dev/null
 
 plymouth-set-default-theme "${NAME}"
 
-
 # ------------------------------------------------------------ WALLPAPERS
-WPDIR="/usr/share/wallpapers/${NAME_CAP}"
+# Image files ship via files/system/usr/share/wallpapers/. This section only
+# points the distro defaults (owned by kde-settings RPMs) at them.
+command -v kwriteconfig6 >/dev/null
 
-#install -Dm0644 "${BRANDING}/wallpapers/fossschloss1080.png" \
-#    "${WPDIR}/contents/images/1920x1080.png"
-#install -Dm0644 "${BRANDING}/wallpapers/fossschloss1440.png" \
-#    "${WPDIR}/contents/images/2560x1440.png"
-#install -Dm0644 "${BRANDING}/wallpapers/fossschloss1080.png" \
-#    "${WPDIR}/contents/screenshot.png"
+WP="${NAME_CAP}"          # directory name under /usr/share/wallpapers (case-sensitive)
+LNF_ID="org.almalinux.${NAME}.default"
+KDEPROFILE="/usr/share/kde-settings/kde-profile/default/xdg"
+WPGROUP=(--group Greeter --group Wallpaper --group org.kde.image --group General)
 
-LNF="/usr/share/plasma/look-and-feel/org.almalinux.${NAME}.default"
-#mkdir -p "${LNF}/contents"
+# Fail the build here rather than ship a broken default
+test -f "/usr/share/wallpapers/${WP}/metadata.json"
+compgen -G "/usr/share/wallpapers/${WP}/contents/images/[0-9]*x[0-9]*.*" >/dev/null
+test -f "/usr/share/plasma/look-and-feel/${LNF_ID}/contents/defaults"
 
-#cat > "${LNF}/contents/defaults" <<DEFAULTS
-#[Wallpaper][org.kde.image][General]
-#Image=Schloss
+# Desktop: default global theme (its contents/defaults names the wallpaper)
+kwriteconfig6 --file "${KDEPROFILE}/kdeglobals" --group KDE \
+    --key LookAndFeelPackage "${LNF_ID}"
+
+# Lock screen
+kwriteconfig6 --file "${KDEPROFILE}/kscreenlockerrc" "${WPGROUP[@]}" \
+    --key Image "file:///usr/share/wallpapers/${WP}"
+
+# Login screen (Plasma Login Manager); file is owned by kde-settings-plasmalogin
+if [ -d /usr/lib/plasmalogin ]; then
+    kwriteconfig6 --file /usr/lib/plasmalogin/defaults.conf "${WPGROUP[@]}" \
+        --key Image "file:///usr/share/wallpapers/${WP}"
+fi
 
 #[Wallpaper][org.kde.image][General][ScreenLocker]
 #Image=${WPDIR}/contents/images/1920x1080.png
@@ -63,6 +77,6 @@ LNF="/usr/share/plasma/look-and-feel/org.almalinux.${NAME}.default"
 #    /etc/xdg/fastfetch/config.jsonc
 
 # ---------------------------------------------------------- INITRAMFS
-kver="$(cd /usr/lib/modules && echo *)"
+kver="$(cd /usr/lib/modules && echo * | awk '{print $1}')"
 dracut --no-hostonly --reproducible -vf \
     "/usr/lib/modules/${kver}/initramfs.img" "${kver}"

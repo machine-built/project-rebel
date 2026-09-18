@@ -1,4 +1,4 @@
-[Schloss Theme]
+[Plymouth Theme]
 Name=Schloss
 Description=A theme for Schloss OS, the enterprise container.
 ModuleName=two-step
@@ -14,7 +14,7 @@ TitleVerticalAlignment=.382
 HorizontalAlignment=.5
 VerticalAlignment=.7
 WatermarkHorizontalAlignment=.5
-WatermarkVerticalAlignment=.7
+WatermarkVerticalAlignment=.5
 Transition=none
 TransitionDuration=0.0
 BackgroundStartColor=0x000000

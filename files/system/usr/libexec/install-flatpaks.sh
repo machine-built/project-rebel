@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-flatpak remote-add --if-not-exists --system flathub https://flathub.org/repo/flathub.flatpakrepo
+flatpak remote-add --if-not-exists --system flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
+flatpak install -y --noninteractive flathub one.ablaze.floorp
 
 # flatpak override for element encryption
 flatpak override --system --talk-name=org.kde.kwalletd6 --talk-name=org.kde.kwalletd5 im.riot.Riot
@@ -12,8 +14,6 @@ STAMP="/var/lib/rebel-flatpak-done"
 if [ -f "$STAMP" ]; then
     exit 0
 fi
-
-flatpak install flathub one.ablaze.floorp
 
 FLATPAK_LIST=(
     "im.riot.Riot"

@@ -1,0 +1,1022 @@
+sudo podman build \
+	--security-opt=label=disable \
+	--cap-add=all \
+	--device /dev/fuse \
+	--no-cache \
+	--build-arg IMAGE_NAME=localhost/myimage \
+	--build-arg IMAGE_REGISTRY=localhost \
+	--build-arg VARIANT= \
+	-t localhost/myimage \
+	-f ./Dockerfile \
+	.
+time="2026-09-18T17:37:23+02:00" level=warning msg="missing \"BESZEL_HUB_URL\" build argument. Try adding \"--build-arg BESZEL_HUB_URL=<VALUE>\" to the command line"
+time="2026-09-18T17:37:23+02:00" level=warning msg="missing \"BESZEL_TOKEN\" build argument. Try adding \"--build-arg BESZEL_TOKEN=<VALUE>\" to the command line"
+time="2026-09-18T17:37:23+02:00" level=warning msg="missing \"BESZEL_KEY\" build argument. Try adding \"--build-arg BESZEL_KEY=<VALUE>\" to the command line"
+[1/2] STEP 1/4: FROM scratch AS ctx
+[1/2] STEP 2/4: COPY files/system /system_files/
+--> 21d46f95cc96
+[1/2] STEP 3/4: COPY --chmod=0755 files/scripts /build_files/
+--> d9b42c867e7c
+[1/2] STEP 4/4: COPY *.pub /keys/
+--> 13389e3d860e
+[2/2] STEP 1/9: FROM quay.io/almalinuxorg/atomic-desktop-kde:10
+[2/2] STEP 2/9: ARG IMAGE_NAME
+--> 13e1027d2e1c
+[2/2] STEP 3/9: ARG IMAGE_REGISTRY
+--> 14524adf618d
+[2/2] STEP 4/9: ARG VARIANT
+--> 79ffd53d5bc9
+[2/2] STEP 5/9: ARG BESZEL_HUB_URL
+--> c6cc094fe338
+[2/2] STEP 6/9: ARG BESZEL_TOKEN
+--> 7c5ec63ecb75
+[2/2] STEP 7/9: ARG BESZEL_KEY
+--> b33d64fdd003
+[2/2] STEP 8/9: RUN --mount=type=tmpfs,dst=/opt     --mount=type=tmpfs,dst=/tmp     --mount=type=bind,from=ctx,source=/,target=/ctx     /ctx/build_files/build.sh
++++ dirname /ctx/build_files/build.sh
+++ realpath /ctx/build_files/..
++ CONTEXT_PATH=/ctx
++++ dirname /ctx/build_files/build.sh
+++ realpath /ctx/build_files
++ BUILD_SCRIPTS_PATH=/ctx/build_files
++ printf '::group:: === Copying files ===\n'
+::group:: === Copying files ===
++ cp -avf /ctx/system_files/. /
+'/ctx/system_files/./etc/motd.d/welcome.motd' -> '/./etc/motd.d/welcome.motd'
+'/ctx/system_files/./etc/sddm.conf.d' -> '/./etc/sddm.conf.d'
+'/ctx/system_files/./etc/sddm.conf.d/10-schloss.conf' -> '/./etc/sddm.conf.d/10-schloss.conf'
+'/ctx/system_files/./etc/xdg/fastfetch' -> '/./etc/xdg/fastfetch'
+'/ctx/system_files/./etc/xdg/fastfetch/config.jsonc' -> '/./etc/xdg/fastfetch/config.jsonc'
+'/ctx/system_files/./etc/xdg/fastfetch/logo.txt' -> '/./etc/xdg/fastfetch/logo.txt'
+removed '/./etc/xdg/kcm-about-distrorc'
+'/ctx/system_files/./etc/xdg/kcm-about-distrorc' -> '/./etc/xdg/kcm-about-distrorc'
+'/ctx/system_files/./etc/xdg/mimeapps.list' -> '/./etc/xdg/mimeapps.list'
+'/ctx/system_files/./etc/yum.repos.d/tailscale.repo' -> '/./etc/yum.repos.d/tailscale.repo'
+'/ctx/system_files/./usr/lib/bootc/kargs.d/10-panic-reboot.toml' -> '/./usr/lib/bootc/kargs.d/10-panic-reboot.toml'
+'/ctx/system_files/./usr/lib/systemd/system/opt.mount' -> '/./usr/lib/systemd/system/opt.mount'
+'/ctx/system_files/./usr/lib/systemd/system/rebel-flatpak-install.service' -> '/./usr/lib/systemd/system/rebel-flatpak-install.service'
+'/ctx/system_files/./usr/lib/systemd/system/rebel-set-hostname.service' -> '/./usr/lib/systemd/system/rebel-set-hostname.service'
+'/ctx/system_files/./usr/lib/systemd/system/rebel-timedate-config.service' -> '/./usr/lib/systemd/system/rebel-timedate-config.service'
+'/ctx/system_files/./usr/libexec/install-flatpaks.sh' -> '/./usr/libexec/install-flatpaks.sh'
+'/ctx/system_files/./usr/libexec/set-hostname.sh' -> '/./usr/libexec/set-hostname.sh'
+'/ctx/system_files/./usr/share/glib-2.0/schemas/20_org.gnome.desktop.background.gschema.override' -> '/./usr/share/glib-2.0/schemas/20_org.gnome.desktop.background.gschema.override'
+'/ctx/system_files/./usr/share/grub/themes' -> '/./usr/share/grub/themes'
+'/ctx/system_files/./usr/share/grub/themes/schloss' -> '/./usr/share/grub/themes/schloss'
+'/ctx/system_files/./usr/share/grub/themes/schloss/BG_GRUB.png' -> '/./usr/share/grub/themes/schloss/BG_GRUB.png'
+'/ctx/system_files/./usr/share/grub/themes/schloss/theme.txt' -> '/./usr/share/grub/themes/schloss/theme.txt'
+'/ctx/system_files/./usr/share/grub/themes/schloss_logo.svg' -> '/./usr/share/grub/themes/schloss_logo.svg'
+'/ctx/system_files/./usr/share/grub/themes/schloss_logo256.png' -> '/./usr/share/grub/themes/schloss_logo256.png'
+'/ctx/system_files/./usr/share/icons/hicolor/128x128/apps/schloss.png' -> '/./usr/share/icons/hicolor/128x128/apps/schloss.png'
+'/ctx/system_files/./usr/share/icons/hicolor/16x16/apps/schloss.png' -> '/./usr/share/icons/hicolor/16x16/apps/schloss.png'
+'/ctx/system_files/./usr/share/icons/hicolor/256x256/apps/schloss.png' -> '/./usr/share/icons/hicolor/256x256/apps/schloss.png'
+'/ctx/system_files/./usr/share/icons/hicolor/32x32/apps/schloss.png' -> '/./usr/share/icons/hicolor/32x32/apps/schloss.png'
+'/ctx/system_files/./usr/share/icons/hicolor/64x64/apps/schloss.png' -> '/./usr/share/icons/hicolor/64x64/apps/schloss.png'
+'/ctx/system_files/./usr/share/icons/hicolor/scalable/apps/schloss.svg' -> '/./usr/share/icons/hicolor/scalable/apps/schloss.svg'
+'/ctx/system_files/./usr/share/pixmaps/schloss.svg' -> '/./usr/share/pixmaps/schloss.svg'
+'/ctx/system_files/./usr/share/plasma/look-and-feel/org.almalinux.schloss.default' -> '/./usr/share/plasma/look-and-feel/org.almalinux.schloss.default'
+'/ctx/system_files/./usr/share/plasma/look-and-feel/org.almalinux.schloss.default/contents' -> '/./usr/share/plasma/look-and-feel/org.almalinux.schloss.default/contents'
+'/ctx/system_files/./usr/share/plasma/look-and-feel/org.almalinux.schloss.default/contents/defaults' -> '/./usr/share/plasma/look-and-feel/org.almalinux.schloss.default/contents/defaults'
+'/ctx/system_files/./usr/share/plasma/look-and-feel/org.almalinux.schloss.default/metadata.json' -> '/./usr/share/plasma/look-and-feel/org.almalinux.schloss.default/metadata.json'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss' -> '/./usr/share/plymouth/themes/schloss'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/animation-0001.png' -> '/./usr/share/plymouth/themes/schloss/animation-0001.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/animation-0002.png' -> '/./usr/share/plymouth/themes/schloss/animation-0002.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/animation-0003.png' -> '/./usr/share/plymouth/themes/schloss/animation-0003.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/animation-0004.png' -> '/./usr/share/plymouth/themes/schloss/animation-0004.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/animation-0005.png' -> '/./usr/share/plymouth/themes/schloss/animation-0005.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/animation-0006.png' -> '/./usr/share/plymouth/themes/schloss/animation-0006.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/animation-0007.png' -> '/./usr/share/plymouth/themes/schloss/animation-0007.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/animation-0008.png' -> '/./usr/share/plymouth/themes/schloss/animation-0008.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/animation-0009.png' -> '/./usr/share/plymouth/themes/schloss/animation-0009.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/animation-0010.png' -> '/./usr/share/plymouth/themes/schloss/animation-0010.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/animation-0011.png' -> '/./usr/share/plymouth/themes/schloss/animation-0011.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/animation-0012.png' -> '/./usr/share/plymouth/themes/schloss/animation-0012.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/animation-0013.png' -> '/./usr/share/plymouth/themes/schloss/animation-0013.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/animation-0014.png' -> '/./usr/share/plymouth/themes/schloss/animation-0014.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/animation-0015.png' -> '/./usr/share/plymouth/themes/schloss/animation-0015.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/animation-0016.png' -> '/./usr/share/plymouth/themes/schloss/animation-0016.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/animation-0017.png' -> '/./usr/share/plymouth/themes/schloss/animation-0017.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/animation-0018.png' -> '/./usr/share/plymouth/themes/schloss/animation-0018.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/animation-0019.png' -> '/./usr/share/plymouth/themes/schloss/animation-0019.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/animation-0020.png' -> '/./usr/share/plymouth/themes/schloss/animation-0020.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/animation-0021.png' -> '/./usr/share/plymouth/themes/schloss/animation-0021.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/animation-0022.png' -> '/./usr/share/plymouth/themes/schloss/animation-0022.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/animation-0023.png' -> '/./usr/share/plymouth/themes/schloss/animation-0023.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/animation-0024.png' -> '/./usr/share/plymouth/themes/schloss/animation-0024.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/animation-0025.png' -> '/./usr/share/plymouth/themes/schloss/animation-0025.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/animation-0026.png' -> '/./usr/share/plymouth/themes/schloss/animation-0026.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/animation-0027.png' -> '/./usr/share/plymouth/themes/schloss/animation-0027.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/animation-0028.png' -> '/./usr/share/plymouth/themes/schloss/animation-0028.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/animation-0029.png' -> '/./usr/share/plymouth/themes/schloss/animation-0029.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/animation-0030.png' -> '/./usr/share/plymouth/themes/schloss/animation-0030.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/animation-0031.png' -> '/./usr/share/plymouth/themes/schloss/animation-0031.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/animation-0032.png' -> '/./usr/share/plymouth/themes/schloss/animation-0032.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/animation-0033.png' -> '/./usr/share/plymouth/themes/schloss/animation-0033.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/animation-0034.png' -> '/./usr/share/plymouth/themes/schloss/animation-0034.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/animation-0035.png' -> '/./usr/share/plymouth/themes/schloss/animation-0035.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/animation-0036.png' -> '/./usr/share/plymouth/themes/schloss/animation-0036.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/background-tile.png' -> '/./usr/share/plymouth/themes/schloss/background-tile.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/schloss.plymouth' -> '/./usr/share/plymouth/themes/schloss/schloss.plymouth'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/schloss_logo.svg' -> '/./usr/share/plymouth/themes/schloss/schloss_logo.svg'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/schloss_logo128.png' -> '/./usr/share/plymouth/themes/schloss/schloss_logo128.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/schloss_logo16.png' -> '/./usr/share/plymouth/themes/schloss/schloss_logo16.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/schloss_logo256.png' -> '/./usr/share/plymouth/themes/schloss/schloss_logo256.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/schloss_logo32.png' -> '/./usr/share/plymouth/themes/schloss/schloss_logo32.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/schloss_logo64.png' -> '/./usr/share/plymouth/themes/schloss/schloss_logo64.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/throbber-0001.png' -> '/./usr/share/plymouth/themes/schloss/throbber-0001.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/throbber-0002.png' -> '/./usr/share/plymouth/themes/schloss/throbber-0002.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/throbber-0003.png' -> '/./usr/share/plymouth/themes/schloss/throbber-0003.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/throbber-0004.png' -> '/./usr/share/plymouth/themes/schloss/throbber-0004.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/throbber-0005.png' -> '/./usr/share/plymouth/themes/schloss/throbber-0005.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/throbber-0006.png' -> '/./usr/share/plymouth/themes/schloss/throbber-0006.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/throbber-0007.png' -> '/./usr/share/plymouth/themes/schloss/throbber-0007.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/throbber-0008.png' -> '/./usr/share/plymouth/themes/schloss/throbber-0008.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/throbber-0009.png' -> '/./usr/share/plymouth/themes/schloss/throbber-0009.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/throbber-0010.png' -> '/./usr/share/plymouth/themes/schloss/throbber-0010.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/throbber-0011.png' -> '/./usr/share/plymouth/themes/schloss/throbber-0011.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/throbber-0012.png' -> '/./usr/share/plymouth/themes/schloss/throbber-0012.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/throbber-0013.png' -> '/./usr/share/plymouth/themes/schloss/throbber-0013.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/throbber-0014.png' -> '/./usr/share/plymouth/themes/schloss/throbber-0014.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/throbber-0015.png' -> '/./usr/share/plymouth/themes/schloss/throbber-0015.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/throbber-0016.png' -> '/./usr/share/plymouth/themes/schloss/throbber-0016.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/throbber-0017.png' -> '/./usr/share/plymouth/themes/schloss/throbber-0017.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/throbber-0018.png' -> '/./usr/share/plymouth/themes/schloss/throbber-0018.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/throbber-0019.png' -> '/./usr/share/plymouth/themes/schloss/throbber-0019.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/throbber-0020.png' -> '/./usr/share/plymouth/themes/schloss/throbber-0020.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/throbber-0021.png' -> '/./usr/share/plymouth/themes/schloss/throbber-0021.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/throbber-0022.png' -> '/./usr/share/plymouth/themes/schloss/throbber-0022.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/throbber-0023.png' -> '/./usr/share/plymouth/themes/schloss/throbber-0023.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/throbber-0024.png' -> '/./usr/share/plymouth/themes/schloss/throbber-0024.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/throbber-0025.png' -> '/./usr/share/plymouth/themes/schloss/throbber-0025.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/throbber-0026.png' -> '/./usr/share/plymouth/themes/schloss/throbber-0026.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/throbber-0027.png' -> '/./usr/share/plymouth/themes/schloss/throbber-0027.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/throbber-0028.png' -> '/./usr/share/plymouth/themes/schloss/throbber-0028.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/throbber-0029.png' -> '/./usr/share/plymouth/themes/schloss/throbber-0029.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/throbber-0030.png' -> '/./usr/share/plymouth/themes/schloss/throbber-0030.png'
+'/ctx/system_files/./usr/share/plymouth/themes/schloss/watermark.png' -> '/./usr/share/plymouth/themes/schloss/watermark.png'
+'/ctx/system_files/./usr/share/sddm' -> '/./usr/share/sddm'
+'/ctx/system_files/./usr/share/sddm/themes' -> '/./usr/share/sddm/themes'
+'/ctx/system_files/./usr/share/sddm/themes/breeze' -> '/./usr/share/sddm/themes/breeze'
+'/ctx/system_files/./usr/share/sddm/themes/breeze/theme.conf.user' -> '/./usr/share/sddm/themes/breeze/theme.conf.user'
+'/ctx/system_files/./usr/share/sddm/themes/schloss' -> '/./usr/share/sddm/themes/schloss'
+'/ctx/system_files/./usr/share/sddm/themes/schloss/BG_lockScreen.png' -> '/./usr/share/sddm/themes/schloss/BG_lockScreen.png'
+'/ctx/system_files/./usr/share/wallpapers/Schloss' -> '/./usr/share/wallpapers/Schloss'
+'/ctx/system_files/./usr/share/wallpapers/Schloss/contents' -> '/./usr/share/wallpapers/Schloss/contents'
+'/ctx/system_files/./usr/share/wallpapers/Schloss/contents/images' -> '/./usr/share/wallpapers/Schloss/contents/images'
+'/ctx/system_files/./usr/share/wallpapers/Schloss/contents/images/1920x1080.png' -> '/./usr/share/wallpapers/Schloss/contents/images/1920x1080.png'
+'/ctx/system_files/./usr/share/wallpapers/Schloss/contents/images/2560x1440.png' -> '/./usr/share/wallpapers/Schloss/contents/images/2560x1440.png'
+'/ctx/system_files/./usr/share/wallpapers/Schloss/metadata.json' -> '/./usr/share/wallpapers/Schloss/metadata.json'
+'/ctx/system_files/./usr/share/wallpapers/Shloss' -> '/./usr/share/wallpapers/Shloss'
+'/ctx/system_files/./usr/share/wallpapers/Shloss/contents' -> '/./usr/share/wallpapers/Shloss/contents'
+'/ctx/system_files/./usr/share/wallpapers/Shloss/contents/images' -> '/./usr/share/wallpapers/Shloss/contents/images'
+'/ctx/system_files/./usr/share/wallpapers/ShlossExtras' -> '/./usr/share/wallpapers/ShlossExtras'
+'/ctx/system_files/./usr/share/wallpapers/foss' -> '/./usr/share/wallpapers/foss'
+'/ctx/system_files/./usr/share/wallpapers/foss/contents' -> '/./usr/share/wallpapers/foss/contents'
+'/ctx/system_files/./usr/share/wallpapers/foss/contents/images' -> '/./usr/share/wallpapers/foss/contents/images'
+'/ctx/system_files/./usr/share/wallpapers/foss/contents/images/1920x1080.png' -> '/./usr/share/wallpapers/foss/contents/images/1920x1080.png'
+'/ctx/system_files/./usr/share/wallpapers/foss/contents/images/2560x1440.png' -> '/./usr/share/wallpapers/foss/contents/images/2560x1440.png'
+'/ctx/system_files/./usr/share/wallpapers/foss/metadata.json' -> '/./usr/share/wallpapers/foss/metadata.json'
++ printf '::endgroup::\n'
+::endgroup::
+++ find /ctx/build_files -maxdepth 1 -iname '*-*.sh' -type f
+++ sort --sort=human-numeric
++ for script in $(find ${BUILD_SCRIPTS_PATH} -maxdepth 1 -iname "*-*.sh" -type f | sort --sort=human-numeric)
+++ basename /ctx/build_files/10-base.sh
+::group:: === 10-base.sh ===
++ printf '::group:: === 10-base.sh ===\n'
+++ realpath /ctx/build_files/10-base.sh
++ /ctx/build_files/10-base.sh
++ mkdir -p /var/lib/rpm-state
++ dnf install -y distribution-gpg-keys
+AlmaLinux 10 - AppStream                        2.6 MB/s | 2.6 MB     00:01    
+AlmaLinux 10 - BaseOS                            31 MB/s |  36 MB     00:01    
+AlmaLinux 10 - CRB                              722 kB/s | 609 kB     00:00    
+AlmaLinux 10 - Extras                            17 kB/s | 7.3 kB     00:00    
+Extra Packages for Enterprise Linux 10 - x86_64  16 MB/s | 6.7 MB     00:00    
+Dependencies resolved.
+================================================================================
+ Package                     Architecture Version              Repository  Size
+================================================================================
+Installing:
+ distribution-gpg-keys       noarch       1.121-1.el10_2       epel       764 k
+
+Transaction Summary
+================================================================================
+Install  1 Package
+
+Total download size: 764 k
+Installed size: 1.1 M
+Downloading Packages:
+distribution-gpg-keys-1.121-1.el10_2.noarch.rpm 5.4 MB/s | 764 kB     00:00    
+--------------------------------------------------------------------------------
+Total                                           3.2 MB/s | 764 kB     00:00     
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                        1/1 
+  Installing       : distribution-gpg-keys-1.121-1.el10_2.noarch            1/1 
+
+Installed:
+  distribution-gpg-keys-1.121-1.el10_2.noarch                                   
+
+Complete!
+++ rpm -E %rhel
+++ rpm -E %rhel
++ rpmkeys --import /usr/share/distribution-gpg-keys/rpmfusion/RPM-GPG-KEY-rpmfusion-free-el-10 /usr/share/distribution-gpg-keys/rpmfusion/RPM-GPG-KEY-rpmfusion-nonfree-el-10
+++ rpm -E %rhel
+++ rpm -E %rhel
++ dnf --setopt=localpkg_gpgcheck=1 install -y https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-10.noarch.rpm https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-10.noarch.rpm
+Last metadata expiration check: 0:00:04 ago on Fri Sep 18 15:37:35 2026.
+rpmfusion-free-release-10.noarch.rpm             21 kB/s |  10 kB     00:00    
+rpmfusion-nonfree-release-10.noarch.rpm          17 kB/s |  10 kB     00:00    
+Dependencies resolved.
+================================================================================
+ Package                        Arch        Version     Repository         Size
+================================================================================
+Installing:
+ rpmfusion-free-release         noarch      10-1        @commandline       10 k
+ rpmfusion-nonfree-release      noarch      10-1        @commandline       10 k
+
+Transaction Summary
+================================================================================
+Install  2 Packages
+
+Total size: 21 k
+Installed size: 7.8 k
+Downloading Packages:
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                        1/1 
+  Installing       : rpmfusion-free-release-10-1.noarch                     1/2 
+  Installing       : rpmfusion-nonfree-release-10-1.noarch                  2/2 
+
+Installed:
+  rpmfusion-free-release-10-1.noarch    rpmfusion-nonfree-release-10-1.noarch   
+
+Complete!
++ dnf config-manager --save --setopt=exclude=PackageKit,PackageKit-command-not-found,rootfiles,firefox
++ dnf install -y sssd sssd-idp oddjob-mkhomedir authselect
+RPM Fusion for EL 10 - Free - Updates            79 kB/s |  55 kB     00:00    
+RPM Fusion for EL 10 - Nonfree - Updates         35 kB/s |  22 kB     00:00    
+Package sssd-2.12.0-3.el10_2.1.x86_64 is already installed.
+Package authselect-1.5.2-1.el10.x86_64 is already installed.
+Dependencies resolved.
+================================================================================
+ Package               Arch        Version                 Repository      Size
+================================================================================
+Installing:
+ oddjob-mkhomedir      x86_64      0.34.7-14.el10          appstream       27 k
+ sssd-idp              x86_64      2.12.0-3.el10_2.1       appstream       67 k
+Installing dependencies:
+ oddjob                x86_64      0.34.7-14.el10          appstream       71 k
+
+Transaction Summary
+================================================================================
+Install  3 Packages
+
+Total download size: 165 k
+Installed size: 342 k
+Downloading Packages:
+(1/3): oddjob-mkhomedir-0.34.7-14.el10.x86_64.r 402 kB/s |  27 kB     00:00    
+(2/3): sssd-idp-2.12.0-3.el10_2.1.x86_64.rpm    774 kB/s |  67 kB     00:00    
+(3/3): oddjob-0.34.7-14.el10.x86_64.rpm         793 kB/s |  71 kB     00:00    
+--------------------------------------------------------------------------------
+Total                                           313 kB/s | 165 kB     00:00     
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                        1/1 
+  Installing       : oddjob-0.34.7-14.el10.x86_64                           1/3 
+  Running scriptlet: oddjob-0.34.7-14.el10.x86_64                           1/3 
+dbus-daemon: no process found
+
+  Installing       : oddjob-mkhomedir-0.34.7-14.el10.x86_64                 2/3 
+  Running scriptlet: oddjob-mkhomedir-0.34.7-14.el10.x86_64                 2/3 
+dbus-daemon: no process found
+
+  Installing       : sssd-idp-2.12.0-3.el10_2.1.x86_64                      3/3 
+  Running scriptlet: sssd-idp-2.12.0-3.el10_2.1.x86_64                      3/3 
+
+Installed:
+  oddjob-0.34.7-14.el10.x86_64         oddjob-mkhomedir-0.34.7-14.el10.x86_64   
+  sssd-idp-2.12.0-3.el10_2.1.x86_64   
+
+Complete!
++ authselect select sssd with-mkhomedir --force
+Backup stored at /var/lib/authselect/backups/2026-09-18-15-37-45.uHypg1
+Profile "sssd" was selected.
+
+Make sure that SSSD service is configured and enabled. See SSSD documentation for more information.
+ 
+- with-mkhomedir is selected, make sure pam_oddjob_mkhomedir module
+  is present and oddjobd service is enabled and active
+  - systemctl enable --now oddjobd.service
+
++ systemctl enable oddjobd.service sssd.service
+Created symlink '/etc/systemd/system/multi-user.target.wants/oddjobd.service' → '/usr/lib/systemd/system/oddjobd.service'.
++ dnf install -y git-core make distrobox
+Last metadata expiration check: 0:00:03 ago on Fri Sep 18 15:37:43 2026.
+Dependencies resolved.
+================================================================================
+ Package          Architecture  Version                  Repository        Size
+================================================================================
+Installing:
+ distrobox        noarch        1.8.2.3-1.el10_2         epel             234 k
+ git-core         x86_64        2.52.0-1.el10            appstream        5.1 M
+ make             x86_64        1:4.4.1-9.el10           baseos           589 k
+
+Transaction Summary
+================================================================================
+Install  3 Packages
+
+Total download size: 5.9 M
+Installed size: 26 M
+Downloading Packages:
+(1/3): make-4.4.1-9.el10.x86_64.rpm             3.9 MB/s | 589 kB     00:00    
+(2/3): distrobox-1.8.2.3-1.el10_2.noarch.rpm    1.3 MB/s | 234 kB     00:00    
+(3/3): git-core-2.52.0-1.el10.x86_64.rpm         20 MB/s | 5.1 MB     00:00    
+--------------------------------------------------------------------------------
+Total                                           5.3 MB/s | 5.9 MB     00:01     
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                        1/1 
+  Installing       : distrobox-1.8.2.3-1.el10_2.noarch                      1/3 
+  Installing       : make-1:4.4.1-9.el10.x86_64                             2/3 
+  Installing       : git-core-2.52.0-1.el10.x86_64                          3/3 
+  Running scriptlet: git-core-2.52.0-1.el10.x86_64                          3/3 
+
+Installed:
+  distrobox-1.8.2.3-1.el10_2.noarch        git-core-2.52.0-1.el10.x86_64       
+  make-1:4.4.1-9.el10.x86_64              
+
+Complete!
++ dnf install -y thermald
+Last metadata expiration check: 0:00:06 ago on Fri Sep 18 15:37:43 2026.
+Package thermald-2.5.10-1.el10.x86_64 is already installed.
+Dependencies resolved.
+Nothing to do.
+Complete!
++ dnf install -y intel-media-driver
+Last metadata expiration check: 0:00:07 ago on Fri Sep 18 15:37:43 2026.
+Dependencies resolved.
+================================================================================
+ Package             Arch    Version           Repository                  Size
+================================================================================
+Installing:
+ intel-media-driver  x86_64  25.2.6-1.el10     rpmfusion-nonfree-updates  7.4 M
+Installing dependencies:
+ intel-gmmlib        x86_64  22.10.1-1.el10_2  epel                       200 k
+
+Transaction Summary
+================================================================================
+Install  2 Packages
+
+Total download size: 7.6 M
+Installed size: 38 M
+Downloading Packages:
+(1/2): intel-gmmlib-22.10.1-1.el10_2.x86_64.rpm 1.1 MB/s | 200 kB     00:00    
+(2/2): intel-media-driver-25.2.6-1.el10.x86_64. 4.2 MB/s | 7.4 MB     00:01    
+--------------------------------------------------------------------------------
+Total                                           3.7 MB/s | 7.6 MB     00:02     
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                        1/1 
+  Installing       : intel-gmmlib-22.10.1-1.el10_2.x86_64                   1/2 
+  Installing       : intel-media-driver-25.2.6-1.el10.x86_64                2/2 
+  Running scriptlet: intel-media-driver-25.2.6-1.el10.x86_64                2/2 
+
+Installed:
+  intel-gmmlib-22.10.1-1.el10_2.x86_64  intel-media-driver-25.2.6-1.el10.x86_64 
+
+Complete!
++ dnf install -y kmail
+Last metadata expiration check: 0:00:10 ago on Fri Sep 18 15:37:43 2026.
+Dependencies resolved.
+================================================================================
+ Package                   Arch      Version                 Repository    Size
+================================================================================
+Installing:
+ kmail                     x86_64    25.12.3-1.el10_2        epel         6.3 M
+Installing dependencies:
+ akonadi-calendar          x86_64    25.12.3-1.el10_2        epel         851 k
+ akonadi-contacts          x86_64    25.12.3-1.el10_2        epel         632 k
+ akonadi-import-wizard     x86_64    25.12.3-1.el10_2        epel         795 k
+ akonadi-mime              x86_64    25.12.3-1.el10_2        epel         294 k
+ akonadi-search            x86_64    25.12.3-1.el10_2        epel         888 k
+ calendarsupport           x86_64    25.12.3-1.el10_2        epel         670 k
+ eventviews                x86_64    25.12.3-1.el10_2        epel         786 k
+ grantlee-editor           x86_64    25.12.3-1.el10_2        epel         321 k
+ grantlee-editor-libs      x86_64    25.12.3-1.el10_2        epel          47 k
+ grantleetheme             x86_64    25.12.3-1.el10_2        epel         104 k
+ incidenceeditor           x86_64    25.12.3-1.el10_2        epel         679 k
+ kaddressbook              x86_64    25.12.3-1.el10_2        epel         3.2 M
+ kaddressbook-libs         x86_64    25.12.3-1.el10_2        epel         298 k
+ kcalutils                 x86_64    25.12.3-1.el10_2        epel         368 k
+ kdepim-runtime            x86_64    1:25.12.3-1.el10_2      epel         3.2 M
+ kdepim-runtime-libs       x86_64    1:25.12.3-1.el10_2      epel         616 k
+ kdiagram                  x86_64    3.0.1-4.el10_0          epel         612 k
+ kf6-kdav                  x86_64    6.25.0-1.el10_2         epel         138 k
+ kidentitymanagement       x86_64    25.12.3-1.el10_2        epel         251 k
+ kimap                     x86_64    25.12.3-1.el10_2        epel         293 k
+ kitinerary                x86_64    25.12.3-1.el10_2        epel         1.9 M
+ kldap                     x86_64    25.12.3-1.el10_2        epel         250 k
+ kmail-account-wizard      x86_64    25.12.3-1.el10_2        epel         219 k
+ kmail-libs                x86_64    25.12.3-1.el10_2        epel         1.2 M
+ kmailtransport            x86_64    25.12.3-1.el10_2        epel         310 k
+ kmbox                     x86_64    25.12.3-1.el10_2        epel          47 k
+ kmime                     x86_64    25.12.3-1.el10_2        epel         172 k
+ kontactinterface          x86_64    25.12.3-1.el10_2        epel          82 k
+ kpimtextedit              x86_64    25.12.3-1.el10_2        epel         234 k
+ kpkpass                   x86_64    25.12.3-1.el10_2        epel          91 k
+ ksmtp                     x86_64    25.12.3-1.el10_2        epel          91 k
+ ktextaddons-common        noarch    1.8.0-1.el10_2          epel         374 k
+ ktextaddons-qt6           x86_64    1.8.0-1.el10_2          epel         1.1 M
+ ktnef                     x86_64    25.12.3-1.el10_2        epel         162 k
+ libgravatar               x86_64    25.12.3-1.el10_2        epel          75 k
+ libkdepim                 x86_64    25.12.3-1.el10_2        epel         120 k
+ libkleo                   x86_64    25.12.3-1.el10_2        epel         1.0 M
+ libksieve                 x86_64    25.12.3-1.el10_2        epel         891 k
+ mailcommon                x86_64    25.12.3-1.el10_2        epel         973 k
+ mailimporter              x86_64    25.12.3-1.el10_2        epel         291 k
+ mailimporter-akonadi      x86_64    25.12.3-1.el10_2        epel          30 k
+ messagelib                x86_64    25.12.3-1.el10_2        epel         3.0 M
+ pim-data-exporter         x86_64    25.12.3-1.el10_2        epel         397 k
+ pim-data-exporter-libs    x86_64    25.12.3-1.el10_2        epel         208 k
+ pim-sieve-editor          x86_64    25.12.3-1.el10_2        epel         623 k
+ pimcommon                 x86_64    25.12.3-1.el10_2        epel         543 k
+ qgpgme-qt6                x86_64    1.23.2-6.el10.alma.1    crb          313 k
+ qt6-qtnetworkauth         x86_64    6.10.1-1.el10           appstream    125 k
+Installing weak dependencies:
+ cyrus-sasl-md5            x86_64    2.1.28-30.el10_2        appstream     42 k
+ kdepim-addons             x86_64    25.12.3-1.el10_2        epel         3.3 M
+
+Transaction Summary
+================================================================================
+Install  51 Packages
+
+Total download size: 39 M
+Installed size: 144 M
+Downloading Packages:
+(1/51): cyrus-sasl-md5-2.1.28-30.el10_2.x86_64. 513 kB/s |  42 kB     00:00    
+(2/51): qt6-qtnetworkauth-6.10.1-1.el10.x86_64. 1.1 MB/s | 125 kB     00:00    
+(3/51): qgpgme-qt6-1.23.2-6.el10.alma.1.x86_64. 2.3 MB/s | 313 kB     00:00    
+(4/51): akonadi-calendar-25.12.3-1.el10_2.x86_6 6.4 MB/s | 851 kB     00:00    
+(5/51): akonadi-contacts-25.12.3-1.el10_2.x86_6 5.5 MB/s | 632 kB     00:00    
+(6/51): akonadi-mime-25.12.3-1.el10_2.x86_64.rp  16 MB/s | 294 kB     00:00    
+(7/51): calendarsupport-25.12.3-1.el10_2.x86_64  24 MB/s | 670 kB     00:00    
+(8/51): akonadi-search-25.12.3-1.el10_2.x86_64.  16 MB/s | 888 kB     00:00    
+(9/51): eventviews-25.12.3-1.el10_2.x86_64.rpm   30 MB/s | 786 kB     00:00    
+(10/51): grantlee-editor-25.12.3-1.el10_2.x86_6  15 MB/s | 321 kB     00:00    
+(11/51): akonadi-import-wizard-25.12.3-1.el10_2 4.6 MB/s | 795 kB     00:00    
+(12/51): grantlee-editor-libs-25.12.3-1.el10_2. 2.8 MB/s |  47 kB     00:00    
+(13/51): grantleetheme-25.12.3-1.el10_2.x86_64. 6.6 MB/s | 104 kB     00:00    
+(14/51): kaddressbook-libs-25.12.3-1.el10_2.x86 9.8 MB/s | 298 kB     00:00    
+(15/51): kaddressbook-25.12.3-1.el10_2.x86_64.r  38 MB/s | 3.2 MB     00:00    
+(16/51): kcalutils-25.12.3-1.el10_2.x86_64.rpm  6.6 MB/s | 368 kB     00:00    
+(17/51): incidenceeditor-25.12.3-1.el10_2.x86_6 7.1 MB/s | 679 kB     00:00    
+(18/51): kdepim-addons-25.12.3-1.el10_2.x86_64.  26 MB/s | 3.3 MB     00:00    
+(19/51): kdepim-runtime-libs-25.12.3-1.el10_2.x 4.8 MB/s | 616 kB     00:00    
+(20/51): kdiagram-3.0.1-4.el10_0.x86_64.rpm      21 MB/s | 612 kB     00:00    
+(21/51): kf6-kdav-6.25.0-1.el10_2.x86_64.rpm    4.6 MB/s | 138 kB     00:00    
+(22/51): kidentitymanagement-25.12.3-1.el10_2.x  12 MB/s | 251 kB     00:00    
+(23/51): kimap-25.12.3-1.el10_2.x86_64.rpm      9.1 MB/s | 293 kB     00:00    
+(24/51): kitinerary-25.12.3-1.el10_2.x86_64.rpm  38 MB/s | 1.9 MB     00:00    
+(25/51): kldap-25.12.3-1.el10_2.x86_64.rpm      7.1 MB/s | 250 kB     00:00    
+(26/51): kmail-account-wizard-25.12.3-1.el10_2. 3.5 MB/s | 219 kB     00:00    
+(27/51): kmail-25.12.3-1.el10_2.x86_64.rpm       44 MB/s | 6.3 MB     00:00    
+(28/51): kmailtransport-25.12.3-1.el10_2.x86_64  18 MB/s | 310 kB     00:00    
+(29/51): kmbox-25.12.3-1.el10_2.x86_64.rpm      3.5 MB/s |  47 kB     00:00    
+(30/51): kmime-25.12.3-1.el10_2.x86_64.rpm       12 MB/s | 172 kB     00:00    
+(31/51): kmail-libs-25.12.3-1.el10_2.x86_64.rpm 9.5 MB/s | 1.2 MB     00:00    
+(32/51): kontactinterface-25.12.3-1.el10_2.x86_ 5.3 MB/s |  82 kB     00:00    
+(33/51): kpkpass-25.12.3-1.el10_2.x86_64.rpm    5.8 MB/s |  91 kB     00:00    
+(34/51): kpimtextedit-25.12.3-1.el10_2.x86_64.r 8.9 MB/s | 234 kB     00:00    
+(35/51): ksmtp-25.12.3-1.el10_2.x86_64.rpm      6.1 MB/s |  91 kB     00:00    
+(36/51): ktextaddons-qt6-1.8.0-1.el10_2.x86_64.  35 MB/s | 1.1 MB     00:00    
+(37/51): ktextaddons-common-1.8.0-1.el10_2.noar 6.3 MB/s | 374 kB     00:00    
+(38/51): ktnef-25.12.3-1.el10_2.x86_64.rpm       11 MB/s | 162 kB     00:00    
+(39/51): libgravatar-25.12.3-1.el10_2.x86_64.rp 5.0 MB/s |  75 kB     00:00    
+(40/51): libkdepim-25.12.3-1.el10_2.x86_64.rpm  8.4 MB/s | 120 kB     00:00    
+(41/51): libksieve-25.12.3-1.el10_2.x86_64.rpm   30 MB/s | 891 kB     00:00    
+(42/51): mailcommon-25.12.3-1.el10_2.x86_64.rpm  31 MB/s | 973 kB     00:00    
+(43/51): mailimporter-25.12.3-1.el10_2.x86_64.r  16 MB/s | 291 kB     00:00    
+(44/51): libkleo-25.12.3-1.el10_2.x86_64.rpm     10 MB/s | 1.0 MB     00:00    
+(45/51): mailimporter-akonadi-25.12.3-1.el10_2. 1.9 MB/s |  30 kB     00:00    
+(46/51): messagelib-25.12.3-1.el10_2.x86_64.rpm  45 MB/s | 3.0 MB     00:00    
+(47/51): pim-data-exporter-25.12.3-1.el10_2.x86 5.1 MB/s | 397 kB     00:00    
+(48/51): pim-data-exporter-libs-25.12.3-1.el10_  12 MB/s | 208 kB     00:00    
+(49/51): pimcommon-25.12.3-1.el10_2.x86_64.rpm   26 MB/s | 543 kB     00:00    
+(50/51): pim-sieve-editor-25.12.3-1.el10_2.x86_  11 MB/s | 623 kB     00:00    
+(51/51): kdepim-runtime-25.12.3-1.el10_2.x86_64 3.2 MB/s | 3.2 MB     00:00    
+--------------------------------------------------------------------------------
+Total                                            16 MB/s |  39 MB     00:02     
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                        1/1 
+  Installing       : kmime-25.12.3-1.el10_2.x86_64                         1/51 
+  Installing       : akonadi-mime-25.12.3-1.el10_2.x86_64                  2/51 
+  Installing       : libkdepim-25.12.3-1.el10_2.x86_64                     3/51 
+  Installing       : kldap-25.12.3-1.el10_2.x86_64                         4/51 
+  Installing       : qgpgme-qt6-1.23.2-6.el10.alma.1.x86_64                5/51 
+  Installing       : libkleo-25.12.3-1.el10_2.x86_64                       6/51 
+  Installing       : grantleetheme-25.12.3-1.el10_2.x86_64                 7/51 
+  Installing       : kimap-25.12.3-1.el10_2.x86_64                         8/51 
+  Installing       : kontactinterface-25.12.3-1.el10_2.x86_64              9/51 
+  Installing       : kmbox-25.12.3-1.el10_2.x86_64                        10/51 
+  Installing       : libgravatar-25.12.3-1.el10_2.x86_64                  11/51 
+  Installing       : kpkpass-25.12.3-1.el10_2.x86_64                      12/51 
+  Installing       : kf6-kdav-6.25.0-1.el10_2.x86_64                      13/51 
+  Installing       : kdiagram-3.0.1-4.el10_0.x86_64                       14/51 
+  Installing       : kitinerary-25.12.3-1.el10_2.x86_64                   15/51 
+  Installing       : ktextaddons-common-1.8.0-1.el10_2.noarch             16/51 
+  Installing       : ktextaddons-qt6-1.8.0-1.el10_2.x86_64                17/51 
+  Installing       : akonadi-contacts-25.12.3-1.el10_2.x86_64             18/51 
+  Installing       : kpimtextedit-25.12.3-1.el10_2.x86_64                 19/51 
+  Installing       : kidentitymanagement-25.12.3-1.el10_2.x86_64          20/51 
+  Installing       : kcalutils-25.12.3-1.el10_2.x86_64                    21/51 
+  Installing       : akonadi-search-25.12.3-1.el10_2.x86_64               22/51 
+  Installing       : pimcommon-25.12.3-1.el10_2.x86_64                    23/51 
+  Installing       : mailimporter-25.12.3-1.el10_2.x86_64                 24/51 
+  Installing       : libksieve-25.12.3-1.el10_2.x86_64                    25/51 
+  Installing       : ktnef-25.12.3-1.el10_2.x86_64                        26/51 
+  Installing       : mailimporter-akonadi-25.12.3-1.el10_2.x86_64         27/51 
+  Installing       : qt6-qtnetworkauth-6.10.1-1.el10.x86_64               28/51 
+  Installing       : cyrus-sasl-md5-2.1.28-30.el10_2.x86_64               29/51 
+  Installing       : ksmtp-25.12.3-1.el10_2.x86_64                        30/51 
+  Installing       : kmailtransport-25.12.3-1.el10_2.x86_64               31/51 
+  Installing       : messagelib-25.12.3-1.el10_2.x86_64                   32/51 
+  Installing       : mailcommon-25.12.3-1.el10_2.x86_64                   33/51 
+  Installing       : akonadi-calendar-25.12.3-1.el10_2.x86_64             34/51 
+  Installing       : calendarsupport-25.12.3-1.el10_2.x86_64              35/51 
+  Installing       : kdepim-runtime-libs-1:25.12.3-1.el10_2.x86_64        36/51 
+  Installing       : kdepim-runtime-1:25.12.3-1.el10_2.x86_64             37/51 
+  Installing       : akonadi-import-wizard-25.12.3-1.el10_2.x86_64        38/51 
+  Installing       : pim-data-exporter-25.12.3-1.el10_2.x86_64            39/51 
+  Installing       : pim-data-exporter-libs-25.12.3-1.el10_2.x86_64       40/51 
+  Installing       : grantlee-editor-libs-25.12.3-1.el10_2.x86_64         41/51 
+  Installing       : grantlee-editor-25.12.3-1.el10_2.x86_64              42/51 
+  Installing       : eventviews-25.12.3-1.el10_2.x86_64                   43/51 
+  Installing       : incidenceeditor-25.12.3-1.el10_2.x86_64              44/51 
+  Installing       : kaddressbook-libs-25.12.3-1.el10_2.x86_64            45/51 
+  Installing       : kdepim-addons-25.12.3-1.el10_2.x86_64                46/51 
+  Installing       : kaddressbook-25.12.3-1.el10_2.x86_64                 47/51 
+  Installing       : kmail-account-wizard-25.12.3-1.el10_2.x86_64         48/51 
+  Installing       : pim-sieve-editor-25.12.3-1.el10_2.x86_64             49/51 
+  Installing       : kmail-libs-25.12.3-1.el10_2.x86_64                   50/51 
+  Installing       : kmail-25.12.3-1.el10_2.x86_64                        51/51 
+  Running scriptlet: kmail-25.12.3-1.el10_2.x86_64                        51/51 
+
+Installed:
+  akonadi-calendar-25.12.3-1.el10_2.x86_64                                      
+  akonadi-contacts-25.12.3-1.el10_2.x86_64                                      
+  akonadi-import-wizard-25.12.3-1.el10_2.x86_64                                 
+  akonadi-mime-25.12.3-1.el10_2.x86_64                                          
+  akonadi-search-25.12.3-1.el10_2.x86_64                                        
+  calendarsupport-25.12.3-1.el10_2.x86_64                                       
+  cyrus-sasl-md5-2.1.28-30.el10_2.x86_64                                        
+  eventviews-25.12.3-1.el10_2.x86_64                                            
+  grantlee-editor-25.12.3-1.el10_2.x86_64                                       
+  grantlee-editor-libs-25.12.3-1.el10_2.x86_64                                  
+  grantleetheme-25.12.3-1.el10_2.x86_64                                         
+  incidenceeditor-25.12.3-1.el10_2.x86_64                                       
+  kaddressbook-25.12.3-1.el10_2.x86_64                                          
+  kaddressbook-libs-25.12.3-1.el10_2.x86_64                                     
+  kcalutils-25.12.3-1.el10_2.x86_64                                             
+  kdepim-addons-25.12.3-1.el10_2.x86_64                                         
+  kdepim-runtime-1:25.12.3-1.el10_2.x86_64                                      
+  kdepim-runtime-libs-1:25.12.3-1.el10_2.x86_64                                 
+  kdiagram-3.0.1-4.el10_0.x86_64                                                
+  kf6-kdav-6.25.0-1.el10_2.x86_64                                               
+  kidentitymanagement-25.12.3-1.el10_2.x86_64                                   
+  kimap-25.12.3-1.el10_2.x86_64                                                 
+  kitinerary-25.12.3-1.el10_2.x86_64                                            
+  kldap-25.12.3-1.el10_2.x86_64                                                 
+  kmail-25.12.3-1.el10_2.x86_64                                                 
+  kmail-account-wizard-25.12.3-1.el10_2.x86_64                                  
+  kmail-libs-25.12.3-1.el10_2.x86_64                                            
+  kmailtransport-25.12.3-1.el10_2.x86_64                                        
+  kmbox-25.12.3-1.el10_2.x86_64                                                 
+  kmime-25.12.3-1.el10_2.x86_64                                                 
+  kontactinterface-25.12.3-1.el10_2.x86_64                                      
+  kpimtextedit-25.12.3-1.el10_2.x86_64                                          
+  kpkpass-25.12.3-1.el10_2.x86_64                                               
+  ksmtp-25.12.3-1.el10_2.x86_64                                                 
+  ktextaddons-common-1.8.0-1.el10_2.noarch                                      
+  ktextaddons-qt6-1.8.0-1.el10_2.x86_64                                         
+  ktnef-25.12.3-1.el10_2.x86_64                                                 
+  libgravatar-25.12.3-1.el10_2.x86_64                                           
+  libkdepim-25.12.3-1.el10_2.x86_64                                             
+  libkleo-25.12.3-1.el10_2.x86_64                                               
+  libksieve-25.12.3-1.el10_2.x86_64                                             
+  mailcommon-25.12.3-1.el10_2.x86_64                                            
+  mailimporter-25.12.3-1.el10_2.x86_64                                          
+  mailimporter-akonadi-25.12.3-1.el10_2.x86_64                                  
+  messagelib-25.12.3-1.el10_2.x86_64                                            
+  pim-data-exporter-25.12.3-1.el10_2.x86_64                                     
+  pim-data-exporter-libs-25.12.3-1.el10_2.x86_64                                
+  pim-sieve-editor-25.12.3-1.el10_2.x86_64                                      
+  pimcommon-25.12.3-1.el10_2.x86_64                                             
+  qgpgme-qt6-1.23.2-6.el10.alma.1.x86_64                                        
+  qt6-qtnetworkauth-6.10.1-1.el10.x86_64                                        
+
+Complete!
++ dnf install -y merkuro korganizer kaddressbook kdepim-runtime kdepim-addons
+Last metadata expiration check: 0:00:20 ago on Fri Sep 18 15:37:43 2026.
+Package kaddressbook-25.12.3-1.el10_2.x86_64 is already installed.
+Package kdepim-runtime-1:25.12.3-1.el10_2.x86_64 is already installed.
+Package kdepim-addons-25.12.3-1.el10_2.x86_64 is already installed.
+Dependencies resolved.
+================================================================================
+ Package                Architecture  Version                 Repository   Size
+================================================================================
+Installing:
+ korganizer             x86_64        25.12.3-1.el10_2        epel        1.9 M
+ merkuro                x86_64        25.12.3-1.el10_2        epel        2.0 M
+Installing dependencies:
+ korganizer-libs        x86_64        25.12.3-1.el10_2        epel        874 k
+ mimetreeparser         x86_64        25.12.3-1.el10_2        epel        304 k
+
+Transaction Summary
+================================================================================
+Install  4 Packages
+
+Total download size: 5.1 M
+Installed size: 22 M
+Downloading Packages:
+(1/4): korganizer-libs-25.12.3-1.el10_2.x86_64. 2.4 MB/s | 874 kB     00:00    
+(2/4): merkuro-25.12.3-1.el10_2.x86_64.rpm      4.8 MB/s | 2.0 MB     00:00    
+(3/4): mimetreeparser-25.12.3-1.el10_2.x86_64.r 2.9 MB/s | 304 kB     00:00    
+(4/4): korganizer-25.12.3-1.el10_2.x86_64.rpm   4.0 MB/s | 1.9 MB     00:00    
+--------------------------------------------------------------------------------
+Total                                           9.0 MB/s | 5.1 MB     00:00     
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                        1/1 
+  Installing       : korganizer-libs-25.12.3-1.el10_2.x86_64                1/4 
+  Installing       : korganizer-25.12.3-1.el10_2.x86_64                     2/4 
+  Installing       : mimetreeparser-25.12.3-1.el10_2.x86_64                 3/4 
+  Installing       : merkuro-25.12.3-1.el10_2.x86_64                        4/4 
+  Running scriptlet: merkuro-25.12.3-1.el10_2.x86_64                        4/4 
+
+Installed:
+  korganizer-25.12.3-1.el10_2.x86_64   korganizer-libs-25.12.3-1.el10_2.x86_64  
+  merkuro-25.12.3-1.el10_2.x86_64      mimetreeparser-25.12.3-1.el10_2.x86_64   
+
+Complete!
++ dnf install -y fastfetch
+Last metadata expiration check: 0:00:23 ago on Fri Sep 18 15:37:43 2026.
+Dependencies resolved.
+================================================================================
+ Package           Architecture   Version                    Repository    Size
+================================================================================
+Installing:
+ fastfetch         x86_64         2.66.0-1.el10_2            epel         556 k
+Installing dependencies:
+ yyjson            x86_64         0.12.0-1.el10_2            epel         121 k
+
+Transaction Summary
+================================================================================
+Install  2 Packages
+
+Total download size: 677 k
+Installed size: 1.8 M
+Downloading Packages:
+(1/2): yyjson-0.12.0-1.el10_2.x86_64.rpm        451 kB/s | 121 kB     00:00    
+(2/2): fastfetch-2.66.0-1.el10_2.x86_64.rpm     2.0 MB/s | 556 kB     00:00    
+--------------------------------------------------------------------------------
+Total                                           1.8 MB/s | 677 kB     00:00     
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                        1/1 
+  Installing       : yyjson-0.12.0-1.el10_2.x86_64                          1/2 
+  Installing       : fastfetch-2.66.0-1.el10_2.x86_64                       2/2 
+  Running scriptlet: fastfetch-2.66.0-1.el10_2.x86_64                       2/2 
+
+Installed:
+  fastfetch-2.66.0-1.el10_2.x86_64         yyjson-0.12.0-1.el10_2.x86_64        
+
+Complete!
++ systemctl enable thermald.service
++ systemctl enable fwupd.service
+The unit files have no installation config (WantedBy=, RequiredBy=, UpheldBy=,
+Also=, or Alias= settings in the [Install] section, and DefaultInstance= for
+template units). This means they are not meant to be enabled or disabled using systemctl.
+ 
+Possible reasons for having these kinds of units are:
+• A unit may be statically enabled by being symlinked from another unit's
+  .wants/, .requires/, or .upholds/ directory.
+• A unit's purpose may be to act as a helper for some other unit which has
+  a requirement dependency on it.
+• A unit may be started when needed via activation (socket, path, timer,
+  D-Bus, udev, scripted systemctl call, ...).
+• In case of template units, the unit is meant to be enabled with some
+  instance name specified.
++ chmod +x /usr/libexec/install-flatpaks.sh
++ systemctl enable rebel-flatpak-install.service
+Created symlink '/etc/systemd/system/multi-user.target.wants/rebel-flatpak-install.service' → '/usr/lib/systemd/system/rebel-flatpak-install.service'.
++ chmod +x /usr/libexec/set-hostname.sh
++ systemctl enable rebel-set-hostname.service
+Created symlink '/etc/systemd/system/multi-user.target.wants/rebel-set-hostname.service' → '/usr/lib/systemd/system/rebel-set-hostname.service'.
++ systemctl enable rebel-timedate-config.service
+Created symlink '/etc/systemd/system/multi-user.target.wants/rebel-timedate-config.service' → '/usr/lib/systemd/system/rebel-timedate-config.service'.
++ rm -f /etc/systemd/system/multi-user.target.wants/kdump.service
++ sed -i s,AlmaLinux,RebelLinux,g /usr/lib/os-release
++ echo 'Hello, Schloss Linux world!.'
+Hello, Schloss Linux world!.
++ printf '::endgroup::\n'
+::endgroup::
++ for script in $(find ${BUILD_SCRIPTS_PATH} -maxdepth 1 -iname "*-*.sh" -type f | sort --sort=human-numeric)
+++ basename /ctx/build_files/15-beszel.sh
++ printf '::group:: === 15-beszel.sh ===\n'
+::group:: === 15-beszel.sh ===
+++ realpath /ctx/build_files/15-beszel.sh
++ /ctx/build_files/15-beszel.sh
+Installing beszel-agent...
+Created symlink '/etc/systemd/system/multi-user.target.wants/beszel-agent.service' → '/usr/lib/systemd/system/beszel-agent.service'.
+beszel-agent installed, configured, and enabled.
++ printf '::endgroup::\n'
+::endgroup::
++ for script in $(find ${BUILD_SCRIPTS_PATH} -maxdepth 1 -iname "*-*.sh" -type f | sort --sort=human-numeric)
+++ basename /ctx/build_files/20-tailscale.sh
++ printf '::group:: === 20-tailscale.sh ===\n'
+::group:: === 20-tailscale.sh ===
+++ realpath /ctx/build_files/20-tailscale.sh
++ /ctx/build_files/20-tailscale.sh
++ dnf install -y --enablerepo=tailscale-stable tailscale
+Tailscale stable                                2.6 kB/s | 905  B     00:00    
+Tailscale stable                                 22 kB/s | 3.1 kB     00:00    
+Importing GPG key 0x957F5868:
+ Userid     : "Tailscale Inc. (Package repository signing key) <info@tailscale.com>"
+ Fingerprint: 2596 A99E AAB3 3821 893C 0A79 458C A832 957F 5868
+ From       : https://pkgs.tailscale.com/stable/rhel/10/repo.gpg
+Tailscale stable                                 33 kB/s |  14 kB     00:00    
+Dependencies resolved.
+================================================================================
+ Package          Architecture  Version           Repository               Size
+================================================================================
+Installing:
+ tailscale        x86_64        1.102.4-1         tailscale-stable         38 M
+
+Transaction Summary
+================================================================================
+Install  1 Package
+
+Total download size: 38 M
+Installed size: 73 M
+Downloading Packages:
+tailscale_1.102.4_x86_64.rpm                     45 MB/s |  38 MB     00:00    
+--------------------------------------------------------------------------------
+Total                                            45 MB/s |  38 MB     00:00     
+Tailscale stable                                 22 kB/s | 3.1 kB     00:00    
+Importing GPG key 0x957F5868:
+ Userid     : "Tailscale Inc. (Package repository signing key) <info@tailscale.com>"
+ Fingerprint: 2596 A99E AAB3 3821 893C 0A79 458C A832 957F 5868
+ From       : https://pkgs.tailscale.com/stable/rhel/10/repo.gpg
+Key imported successfully
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                        1/1 
+  Installing       : tailscale-1.102.4-1.x86_64                             1/1 
+  Running scriptlet: tailscale-1.102.4-1.x86_64                             1/1 
+
+Installed:
+  tailscale-1.102.4-1.x86_64                                                    
+
+Complete!
++ systemctl enable tailscaled.service
+Created symlink '/etc/systemd/system/multi-user.target.wants/tailscaled.service' → '/usr/lib/systemd/system/tailscaled.service'.
++ printf '::endgroup::\n'
+::endgroup::
++ for script in $(find ${BUILD_SCRIPTS_PATH} -maxdepth 1 -iname "*-*.sh" -type f | sort --sort=human-numeric)
+++ basename /ctx/build_files/50-branding.sh
+::group:: === 50-branding.sh ===
++ printf '::group:: === 50-branding.sh ===\n'
+++ realpath /ctx/build_files/50-branding.sh
++ /ctx/build_files/50-branding.sh
++ NAME=schloss
++ NAME_CAP=Schloss
++ VARIANT=ALPHA
++ grep -q '^LOGO=' /usr/lib/os-release
++ sed -i 's/^LOGO=.*/LOGO=schloss/' /usr/lib/os-release
++ sed -i '/^VARIANT/d' /usr/lib/os-release
++ printf 'VARIANT="%s"\n' ALPHA
++ command -v plymouth-set-default-theme
++ plymouth-set-default-theme schloss
++ command -v kwriteconfig6
++ WP=Schloss
++ LNF_ID=org.almalinux.schloss.default
++ KDEPROFILE=/usr/share/kde-settings/kde-profile/default/xdg
++ WPGROUP=(--group Greeter --group Wallpaper --group org.kde.image --group General)
++ test -f /usr/share/wallpapers/Schloss/metadata.json
++ for wp in "${WP}" foss
++ compgen -G '/usr/share/wallpapers/Schloss/contents/images/[0-9]*x[0-9]*.*'
++ for wp in "${WP}" foss
++ compgen -G '/usr/share/wallpapers/foss/contents/images/[0-9]*x[0-9]*.*'
++ test -f /usr/share/plasma/look-and-feel/org.almalinux.schloss.default/contents/defaults
++ kwriteconfig6 --file /usr/share/kde-settings/kde-profile/default/xdg/kdeglobals --group KDE --key LookAndFeelPackage org.almalinux.schloss.default
++ kwriteconfig6 --file /usr/share/kde-settings/kde-profile/default/xdg/kscreenlockerrc --group Greeter --group Wallpaper --group org.kde.image --group General --key Image file:///usr/share/wallpapers/Schloss
++ '[' -d /usr/lib/plasmalogin ']'
++ kwriteconfig6 --file /usr/lib/plasmalogin/defaults.conf --group Greeter --group Wallpaper --group org.kde.image --group General --key Image file:///usr/share/wallpapers/Schloss
+++ cd /usr/lib/modules
+++ awk '{print $1}'
+++ echo 6.12.0-211.55.1.el10_2.x86_64
++ kver=6.12.0-211.55.1.el10_2.x86_64
++ dracut --no-hostonly --reproducible -vf /usr/lib/modules/6.12.0-211.55.1.el10_2.x86_64/initramfs.img 6.12.0-211.55.1.el10_2.x86_64
+dracut[E]: No '/dev/log' or 'logger' included for syslog logging
+dracut[I]: Executing: /usr/bin/dracut --no-hostonly --reproducible -vf /usr/lib/modules/6.12.0-211.55.1.el10_2.x86_64/initramfs.img 6.12.0-211.55.1.el10_2.x86_64
+dracut-install: ERROR: installing '/root'
+dracut[E]: FAILED: /usr/lib/dracut/dracut-install -D /var/tmp/dracut.dw1pDa4/initramfs -f /root
+dracut[I]: *** Including module: bash ***
+dracut[I]: *** Including module: systemd ***
+dracut[I]: *** Including module: fips ***
+dracut[I]: *** Including module: fips-crypto-policies ***
+dracut[I]: *** Including module: systemd-ask-password ***
+dracut[I]: *** Including module: systemd-battery-check ***
+dracut[I]: *** Including module: systemd-cryptsetup ***
+dracut[I]: *** Including module: systemd-initrd ***
+dracut[I]: *** Including module: systemd-journald ***
+dracut[I]: *** Including module: systemd-modules-load ***
+dracut[I]: *** Including module: systemd-pcrphase ***
+dracut[I]: *** Including module: systemd-sysctl ***
+dracut[I]: *** Including module: systemd-sysusers ***
+dracut[I]: *** Including module: systemd-tmpfiles ***
+dracut[I]: *** Including module: systemd-udevd ***
+dracut[I]: *** Including module: modsign ***
+dracut[I]: *** Including module: nss-softokn ***
+dracut[I]: *** Including module: dbus-broker ***
+dracut[I]: *** Including module: dbus ***
+dracut[I]: *** Including module: i18n ***
+dracut[I]: *** Including module: network-manager ***
+dracut[I]: *** Including module: network ***
+dracut[I]: *** Including module: drm ***
+dracut[I]: *** Including module: net-lib ***
+dracut[I]: *** Including module: plymouth ***
+dracut[I]: *** Including module: ostree ***
+dracut[I]: *** Including module: clevis ***
+dracut[I]: *** Including module: clevis-pin-null ***
+dracut[I]: *** Including module: clevis-pin-sss ***
+dracut[I]: *** Including module: clevis-pin-tang ***
+dracut[I]: *** Including module: clevis-pin-tpm2 ***
+dracut[I]: *** Including module: prefixdevname ***
+dracut[I]: *** Including module: btrfs ***
+dracut[I]: *** Including module: crypt ***
+dracut[I]: *** Including module: dm ***
+dracut[I]: *** Including module: kernel-modules ***
+dracut[I]: *** Including module: kernel-modules-extra ***
+dracut[I]: *** Including module: kernel-network-modules ***
+dracut[I]: *** Including module: lvm ***
+dracut[I]: *** Including module: mdraid ***
+dracut[I]: *** Including module: multipath ***
+dracut[I]: *** Including module: nvdimm ***
+dracut[I]: *** Including module: qemu ***
+dracut[I]: *** Including module: qemu-net ***
+dracut[I]: *** Including module: fido2 ***
+dracut[I]: *** Including module: pkcs11 ***
+dracut[I]: *** Including module: tpm2-tss ***
+dracut[I]: *** Including module: hwdb ***
+dracut[I]: *** Including module: iscsi ***
+dracut[I]: *** Including module: lunmask ***
+dracut[I]: *** Including module: nfs ***
+dracut[I]: *** Including module: nvmf ***
+dracut[I]: *** Including module: resume ***
+dracut[I]: *** Including module: rootfs-block ***
+dracut[I]: *** Including module: terminfo ***
+dracut[I]: *** Including module: udev-rules ***
+dracut[I]: *** Including module: virtiofs ***
+dracut[I]: *** Including module: walinuxagent ***
+dracut[I]: *** Including module: dracut-systemd ***
+dracut[I]: *** Including module: usrmount ***
+dracut[I]: *** Including module: base ***
+dracut[I]: *** Including module: fs-lib ***
+dracut[I]: *** Including module: memstrack ***
+dracut[I]: *** Including module: microcode_ctl-fw_dir_override ***
+dracut[I]:   microcode_ctl module: mangling fw_dir
+dracut[I]:     microcode_ctl: reset fw_dir to "/lib/firmware/updates /lib/firmware"
+dracut[I]:     microcode_ctl: processing data directory  "/usr/share/microcode_ctl/ucode_with_caveats/intel"...
+intel: model '', path ' intel-ucode/*', kvers ''
+dracut[I]:       microcode_ctl: intel: caveats check for kernel version "6.12.0-211.55.1.el10_2.x86_64" passed, adding "/usr/share/microcode_ctl/ucode_with_caveats/intel" to fw_dir variable
+dracut[I]:     microcode_ctl: processing data directory  "/usr/share/microcode_ctl/ucode_with_caveats/intel-06-4f-01"...
+intel-06-4f-01: model 'GenuineIntel 06-4f-01', path ' intel-ucode/06-4f-01', kvers ' 4.17.0 3.10.0-894 3.10.0-862.6.1 3.10.0-693.35.1 3.10.0-514.52.1 3.10.0-327.70.1 2.6.32-754.1.1 2.6.32-573.58.1 2.6.32-504.71.1 2.6.32-431.90.1 2.6.32-358.90.1'
+Dependency check for required intel: calling check_caveat 'intel' '1' match_model=0
+intel: model '', path ' intel-ucode/*', kvers ''
+Dependency check for required intel succeeded: result=0
+intel-06-4f-01: caveat is disabled in configuration
+dracut[I]:     microcode_ctl: kernel version "6.12.0-211.55.1.el10_2.x86_64" failed early load check for "intel-06-4f-01", skipping
+dracut[I]:     microcode_ctl: processing data directory  "/usr/share/microcode_ctl/ucode_with_caveats/intel-06-8f-08"...
+intel-06-8f-08: model 'GenuineIntel 06-8f-08', path ' intel-ucode/06-8f-08', kvers ''
+Dependency check for required intel: calling check_caveat 'intel' '1' match_model=0
+intel: model '', path ' intel-ucode/*', kvers ''
+Dependency check for required intel succeeded: result=0
+dracut[I]:       microcode_ctl: intel-06-8f-08: caveats check for kernel version "6.12.0-211.55.1.el10_2.x86_64" passed, adding "/usr/share/microcode_ctl/ucode_with_caveats/intel-06-8f-08" to fw_dir variable
+dracut[I]:     microcode_ctl: final fw_dir: "/usr/share/microcode_ctl/ucode_with_caveats/intel-06-8f-08 /usr/share/microcode_ctl/ucode_with_caveats/intel /lib/firmware/updates /lib/firmware"
+dracut[I]: *** Including module: openssl ***
+dracut[I]: *** Including module: shell-interpreter ***
+dracut[I]: *** Including module: shutdown ***
+dracut[I]: *** Including modules done ***
+dracut[I]: *** Installing kernel module dependencies ***
+dracut[I]: *** Installing kernel module dependencies done ***
+dracut[I]: *** Resolving executable dependencies ***
+dracut[I]: *** Resolving executable dependencies done ***
+dracut[I]: *** Hardlinking files ***
+dracut[I]: *** Hardlinking files done ***
+dracut[I]: *** Generating early-microcode cpio image ***
+dracut[I]: *** Constructing AuthenticAMD.bin ***
+dracut[I]: *** Constructing GenuineIntel.bin ***
+dracut[I]: *** Constructing GenuineIntel.bin ***
+dracut[I]: *** Store current command line parameters ***
+dracut[I]: *** Creating image file '/usr/lib/modules/6.12.0-211.55.1.el10_2.x86_64/initramfs.img.tmp' ***
+dracut[I]: Using auto-determined compression method 'zstd'
+dracut[I]: *** Creating initramfs image file '/usr/lib/modules/6.12.0-211.55.1.el10_2.x86_64/initramfs.img.tmp' done ***
+dracut[I]: *** Moving image file '/usr/lib/modules/6.12.0-211.55.1.el10_2.x86_64/initramfs.img.tmp' to '/usr/lib/modules/6.12.0-211.55.1.el10_2.x86_64/initramfs.img' ***
+dracut[I]: *** Moving image file '/usr/lib/modules/6.12.0-211.55.1.el10_2.x86_64/initramfs.img.tmp' to '/usr/lib/modules/6.12.0-211.55.1.el10_2.x86_64/initramfs.img' done ***
+::endgroup::
++ printf '::endgroup::\n'
++ for script in $(find ${BUILD_SCRIPTS_PATH} -maxdepth 1 -iname "*-*.sh" -type f | sort --sort=human-numeric)
+++ basename /ctx/build_files/90-signing.sh
++ printf '::group:: === 90-signing.sh ===\n'
+::group:: === 90-signing.sh ===
+++ realpath /ctx/build_files/90-signing.sh
++ /ctx/build_files/90-signing.sh
++++ dirname /ctx/build_files/90-signing.sh
+++ realpath /ctx/build_files/..
++ CONTEXT_PATH=/ctx
++ '[' '!' -f /ctx/keys/cosign.pub ']'
++ CONTAINER_DIR=/etc/containers
++ CONTAINER_PKI=/etc/pki/containers
++ IMAGE_NAME_FILE=localhost_myimage
++ mkdir -p /etc/pki/containers
++ cp /ctx/keys/cosign.pub /etc/pki/containers/localhost_myimage.pub
++ POLICY_FILE=/etc/containers/policy.json
++ jq --arg image_registry localhost --arg image_name localhost/myimage --arg pki_path /etc/pki/containers/localhost_myimage.pub '.transports.docker |=
+    { ($image_registry + "/" + $image_name): [
+        {
+            "type": "sigstoreSigned",
+            "keyPath": $pki_path,
+            "signedIdentity": {
+                "type": "matchRepository"
+            }
+        }
+    ] }
+    + .
+    | .transports *= (["docker-daemon", "containers-storage", "dir", "oci", "oci-archive", "docker-archive", "tarball"]
+        | map({(.): {"": [{"type": "insecureAcceptAnything"}]}})
+        | add)
+    | .default[0].type = "reject"' /etc/containers/policy.json
++ mv /tmp/POLICY.tmp /etc/containers/policy.json
++ cat
+::endgroup::
++ printf '::endgroup::\n'
++ for script in $(find ${BUILD_SCRIPTS_PATH} -maxdepth 1 -iname "*-*.sh" -type f | sort --sort=human-numeric)
+++ basename /ctx/build_files/91-image-info.sh
++ printf '::group:: === 91-image-info.sh ===\n'
+::group:: === 91-image-info.sh ===
+++ realpath /ctx/build_files/91-image-info.sh
++ /ctx/build_files/91-image-info.sh
++ sed -i '/VARIANT_ID=/d;' /usr/lib/os-release
++ echo 'VARIANT_ID="localhost/myimage"'
++ printf '::endgroup::\n'
+::endgroup::
+::group:: === Image Cleanup ===
++ printf '::group:: === Image Cleanup ===\n'
++ /ctx/build_files/cleanup.sh
++ shopt -s extglob
++ dnf clean all
+47 files removed
++ rm -rf /.gitkeep /var /boot
++ mkdir -p /boot /var
++ mv /usr/local /var/usrlocal
++ ln -s /var/usrlocal /usr/local
+::endgroup::
++ printf '::endgroup::\n'
+--> dd39dcadea01
+[2/2] STEP 9/9: RUN bootc container lint
+Checks passed: 13
+Checks skipped: 1
+[2/2] COMMIT localhost/myimage
+--> 15abe3f3ee39
+Successfully tagged localhost/myimage:latest
+15abe3f3ee39a6a8a5f814d9a2a771f2630a635774eed723ae1d85eaf8971850

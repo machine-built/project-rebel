@@ -23,9 +23,6 @@ sed -i '/^VARIANT/d' /usr/lib/os-release
 # ------------------------------------------------------- PLYMOUTH SPLASH
 command -v plymouth-set-default-theme >/dev/null
 
-T=files/system/usr/share/plymouth/themes/schloss
-git rm $T/background-tile.png $T/schloss_logo.svg $T/schloss_logo{16,32,64,128,256}.png
-
 # mkdir -p "/usr/share/plymouth/themes/${NAME}"
 # cp -a "${BRANDING}/plymouth/." "/usr/share/plymouth/themes/${NAME}/"
 
@@ -47,7 +44,12 @@ WPGROUP=(--group Greeter --group Wallpaper --group org.kde.image --group General
 
 # Fail the build here rather than ship a broken default
 test -f "/usr/share/wallpapers/${WP}/metadata.json"
-compgen -G "/usr/share/wallpapers/${WP}/contents/images/[0-9]*x[0-9]*.*" >/dev/null
+
+for wp in "${WP}" foss; do
+    compgen -G "/usr/share/wallpapers/${wp}/contents/images/[0-9]*x[0-9]*.*" >/dev/null \
+        || { echo "ERROR: no images under /usr/share/wallpapers/${wp}/contents/images/" >&2; exit 1; }
+done
+
 test -f "/usr/share/plasma/look-and-feel/${LNF_ID}/contents/defaults"
 
 # Desktop: default global theme (its contents/defaults names the wallpaper)

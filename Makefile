@@ -6,6 +6,7 @@ IMAGE_NAME ?= localhost/myimage
 CONTAINER_FILE ?= ./Dockerfile
 VARIANT ?=
 IMAGE_CONFIG ?= ./iso.toml
+BUILD_ARGS ?=
 
 IMAGE_TYPE ?= iso
 QEMU_DISK_RAW ?= ./output/disk.raw
@@ -22,6 +23,7 @@ image:
 		--security-opt=label=disable \
 		--cap-add=all \
 		--device /dev/fuse \
+		$(BUILD_ARGS) \
 		--build-arg IMAGE_NAME=$(IMAGE_NAME) \
 		--build-arg IMAGE_REGISTRY=localhost \
 		--build-arg VARIANT=$(VARIANT) \

@@ -21,7 +21,7 @@ sed -i '/^VARIANT/d' /usr/lib/os-release
 } >> /usr/lib/os-release
 
 # ------------------------------------------------------- PLYMOUTH SPLASH
-command -v plymouth-set-default-theme >/dev/null
+#command -v plymouth-set-default-theme >/dev/null
 
 # mkdir -p "/usr/share/plymouth/themes/${NAME}"
 # cp -a "${BRANDING}/plymouth/." "/usr/share/plymouth/themes/${NAME}/"
@@ -30,7 +30,7 @@ command -v plymouth-set-default-theme >/dev/null
 #sed -i "s|^ImageDir=.*|ImageDir=/usr/share/plymouth/themes/${NAME}|" \
 #    "/usr/share/plymouth/themes/${NAME}/${NAME}.plymouth"
 
-plymouth-set-default-theme "${NAME}"
+#plymouth-set-default-theme "${NAME}"
 
 # ------------------------------------------------------------ WALLPAPERS
 # Image files ship via files/system/usr/share/wallpapers/. This section only
@@ -53,12 +53,12 @@ done
 test -f "/usr/share/plasma/look-and-feel/${LNF_ID}/contents/defaults"
 
 # Desktop: default global theme (its contents/defaults names the wallpaper)
-kwriteconfig6 --file "${KDEPROFILE}/kdeglobals" --group KDE \
-    --key LookAndFeelPackage "${LNF_ID}"
+#kwriteconfig6 --file "${KDEPROFILE}/kdeglobals" --group KDE \
+#    --key LookAndFeelPackage "${LNF_ID}"
 
 # Lock screen
-kwriteconfig6 --file "${KDEPROFILE}/kscreenlockerrc" "${WPGROUP[@]}" \
-    --key Image "file:///usr/share/wallpapers/${WP}"
+#kwriteconfig6 --file "${KDEPROFILE}/kscreenlockerrc" "${WPGROUP[@]}" \
+#    --key Image "file:///usr/share/wallpapers/${WP}"
 
 # Login screen (Plasma Login Manager); file is owned by kde-settings-plasmalogin
 if [ -d /usr/lib/plasmalogin ]; then
@@ -79,6 +79,6 @@ fi
 #    /etc/xdg/fastfetch/config.jsonc
 
 # ---------------------------------------------------------- INITRAMFS
-kver="$(cd /usr/lib/modules && echo * | awk '{print $1}')"
-dracut --no-hostonly --reproducible -vf \
-    "/usr/lib/modules/${kver}/initramfs.img" "${kver}"
+#kver="$(cd /usr/lib/modules && echo * | awk '{print $1}')"
+#dracut --no-hostonly --reproducible -vf \
+#    "/usr/lib/modules/${kver}/initramfs.img" "${kver}"

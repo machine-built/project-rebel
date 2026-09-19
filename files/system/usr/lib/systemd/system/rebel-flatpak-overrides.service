@@ -1,0 +1,13 @@
+# files/system/usr/lib/systemd/system/rebel-flatpak-overrides.service
+[Unit]
+Description=Apply Rebel flatpak overrides
+After=system-flatpak-setup.service
+Wants=system-flatpak-setup.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/flatpak override --system --talk-name=org.kde.kwalletd6 --talk-name=org.kde.kwalletd5 im.riot.Riot
+
+[Install]
+WantedBy=multi-user.target

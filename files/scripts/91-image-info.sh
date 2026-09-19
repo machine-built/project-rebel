@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 
-# DO NOT MODIFY THIS FILE UNLESS YOU KNOW WHAT YOU ARE DOING
-
 set -xeuo pipefail
 
 # This may help us get some usage stats through countme data.
+systemctl enable rpm-ostree-countme.timer
 
 # Remove current VARIANT_ID, if it exists.
 sed -i '/VARIANT_ID=/d;' /usr/lib/os-release

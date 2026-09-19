@@ -3,7 +3,8 @@
 set -euxo pipefail
 
 NAME="${NAME:-schloss}"
-NAME_CAP="${NAME_CAP:-Schloss}"
+WP_DESKTOP="${NAME_WP:-foss}"
+WP_LOGIN="${NAME_WP_LOGIN:-SchlossLogin}"
 VARIANT="${VARIANT:-ALPHA}"
 
 # ---------------------------------------------------------------- ICONS
@@ -25,38 +26,39 @@ sed -i '/^VARIANT=/d' /usr/lib/os-release
 # points the distro defaults (owned by kde-settings RPMs) at them.
 command -v kwriteconfig6 >/dev/null
 
-WP="${NAME_CAP}"          # directory name under /usr/share/wallpapers (case-sensitive)
 LNF_ID="org.almalinux.${NAME}.default"
 KDEPROFILE="/usr/share/kde-settings/kde-profile/default/xdg"
 WPGROUP=(--group Greeter --group Wallpaper --group org.kde.image --group General)
 
 # Fail the build here rather than ship a broken default
-test -f "/usr/share/wallpapers/${WP}/metadata.json"
-
-for wp in "${WP}" foss; do
+for wp in "${WP_DESKTOP}" "${WP_LOGIN}"; do
+    test -f "/usr/share/wallpapers/${wp}/metadata.json" \
+        || { echo "ERROR: ${wp} is not a wallpaper package" >&2; exit 1; }
     compgen -G "/usr/share/wallpapers/${wp}/contents/images/[0-9]*x[0-9]*.*" >/dev/null \
         || { echo "ERROR: no images under /usr/share/wallpapers/${wp}/contents/images/" >&2; exit 1; }
 done
 
-test -f "/usr/share/plasma/look-and-feel/${LNF_ID}/contents/defaults"
+LNF_DEFAULTS="/usr/share/plasma/look-and-feel/${LNF_ID}/contents/defaults"
+test -f "${LNF_DEFAULTS}" || { echo "ERROR: missing ${LNF_DEFAULTS}" >&2; exit 1; }
+grep -qx "Image=${WP_DESKTOP}" "${LNF_DEFAULTS}" \
+    || { echo "ERROR: LNF defaults does not name ${WP_DESKTOP}" >&2; exit 1; }
 
 # Desktop: default global theme (its contents/defaults names the wallpaper)
 kwriteconfig6 --file "${KDEPROFILE}/kdeglobals" --group KDE \
     --key LookAndFeelPackage "${LNF_ID}"
 
-# Lock screen
-#kwriteconfig6 --file "${KDEPROFILE}/kscreenlockerrc" "${WPGROUP[@]}" \
-#    --key Image "file:///usr/share/wallpapers/${WP}"
 
 PLM_DEFAULTS=/usr/lib/plasmalogin/defaults.conf
 rpm -q plasma-login-manager || { echo "ERROR: Plasma LM removed" >&2; exit 1; }
 ls -l "${PLM_DEFAULTS}" || true    # log whether an RPM shipped it, and its mode
+
+# Lock screen
+kwriteconfig6 --file "${KDEPROFILE}/kscreenlockerrc" "${WPGROUP[@]}" \
+    --key Image "file:///usr/share/wallpapers/${WP_LOGIN}"
+chmod 0644 "${KDEPROFILE}/kscreenlockerrc"
+
+# Greeter
 kwriteconfig6 --file "${PLM_DEFAULTS}" "${WPGROUP[@]}" \
-    --key Image "file:///usr/share/wallpapers/${WP}"
+    --key Image "file:///usr/share/wallpapers/${WP_LOGIN}"
 chmod 0644 "${PLM_DEFAULTS}"       # greeter runs as user 'plasmalogin'
 cat "${PLM_DEFAULTS}"              # evidence in build.log
-
-#[Wallpaper][org.kde.image][General][ScreenLocker]
-#Image=${WPDIR}/contents/images/1920x1080.png
-#DEFAULTS
-

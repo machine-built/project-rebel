@@ -1,0 +1,4 @@
+{
+  "KPlugin": { "Id": "SchlossLogin", "Name": "Schloss Login", "License": "GPL-3.0" },
+  "KPackageStructure": "Wallpaper/Images"
+}

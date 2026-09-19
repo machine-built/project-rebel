@@ -60,15 +60,3 @@ cat "${PLM_DEFAULTS}"              # evidence in build.log
 #Image=${WPDIR}/contents/images/1920x1080.png
 #DEFAULTS
 
-
-# ------------------------------------------------------------- FASTFETCH
-# XDG search path — /etc/fastfetch is NOT read by fastfetch.
-#install -Dm0644 "${BRANDING}/fastfetch/${NAME}_logo.txt" \
-#    /etc/xdg/fastfetch/logo.txt
-#install -Dm0644 "${BRANDING}/fastfetch/${NAME}_config.jsonc" \
-#    /etc/xdg/fastfetch/config.jsonc
-
-# ---------------------------------------------------------- INITRAMFS
-#kver="$(cd /usr/lib/modules && echo * | awk '{print $1}')"
-#dracut --no-hostonly --reproducible -vf \
-#    "/usr/lib/modules/${kver}/initramfs.img" "${kver}"
